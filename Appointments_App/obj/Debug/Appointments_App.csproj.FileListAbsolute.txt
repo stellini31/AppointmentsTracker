@@ -1,0 +1,14 @@
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\bin\Debug\Appointments_App.exe.config
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\bin\Debug\Appointments_App.exe
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\bin\Debug\Appointments_App.pdb
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Debug\Appointments_App.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Debug\Appointments_App.Properties.Resources.resources
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Debug\Appointments_App.csproj.GenerateResource.Cache
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Debug\Appointments_App.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Debug\Appointments_App.exe
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Debug\Appointments_App.pdb
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Debug\Appointments_App.GUI.EditAppointment.resources
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Debug\Appointments_App.GUI.AddAppointment.resources
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Debug\Appointments_App.Appointments.resources
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Debug\Appointments_App.GUI.Reminders.resources
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Debug\Appointments_App.GUI.Filter.resources
