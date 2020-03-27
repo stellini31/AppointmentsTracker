@@ -33,15 +33,19 @@ namespace Appointments_App
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Appointments));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.todayAppointmentsTab = new System.Windows.Forms.TabPage();
+            this.totalApp_label = new System.Windows.Forms.Label();
             this.dataPanel = new System.Windows.Forms.Panel();
-            this.search_panel = new System.Windows.Forms.Panel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.label12 = new System.Windows.Forms.Label();
-            this.search_text = new System.Windows.Forms.TextBox();
+            this.noAppointments_labe = new System.Windows.Forms.Label();
+            this.date_label = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.tools_panel = new System.Windows.Forms.Panel();
             this.rem_label = new System.Windows.Forms.Label();
             this.saveToCsv_button = new System.Windows.Forms.Button();
             this.refresh_label = new System.Windows.Forms.Label();
+            this.search_panel = new System.Windows.Forms.Panel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.search_text = new System.Windows.Forms.TextBox();
             this.refresh_button = new System.Windows.Forms.Button();
             this.importCSV_label = new System.Windows.Forms.Label();
             this.umportFromCsv_button = new System.Windows.Forms.Button();
@@ -97,8 +101,8 @@ namespace Appointments_App
             this.tabControl1.SuspendLayout();
             this.todayAppointmentsTab.SuspendLayout();
             this.dataPanel.SuspendLayout();
-            this.search_panel.SuspendLayout();
             this.tools_panel.SuspendLayout();
+            this.search_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.todayData)).BeginInit();
             this.scheduledAppointmentsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.doneData)).BeginInit();
@@ -117,39 +121,150 @@ namespace Appointments_App
             this.tabControl1.Location = new System.Drawing.Point(0, 1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1693, 855);
+            this.tabControl1.Size = new System.Drawing.Size(1693, 857);
             this.tabControl1.TabIndex = 3;
             // 
             // todayAppointmentsTab
             // 
             this.todayAppointmentsTab.BackColor = System.Drawing.Color.White;
+            this.todayAppointmentsTab.Controls.Add(this.totalApp_label);
             this.todayAppointmentsTab.Controls.Add(this.dataPanel);
             this.todayAppointmentsTab.ForeColor = System.Drawing.Color.Black;
             this.todayAppointmentsTab.Location = new System.Drawing.Point(4, 38);
             this.todayAppointmentsTab.Name = "todayAppointmentsTab";
             this.todayAppointmentsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.todayAppointmentsTab.Size = new System.Drawing.Size(1685, 813);
+            this.todayAppointmentsTab.Size = new System.Drawing.Size(1685, 815);
             this.todayAppointmentsTab.TabIndex = 0;
             this.todayAppointmentsTab.Text = "Today\'s";
+            // 
+            // totalApp_label
+            // 
+            this.totalApp_label.AutoSize = true;
+            this.totalApp_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalApp_label.ForeColor = System.Drawing.Color.DimGray;
+            this.totalApp_label.Location = new System.Drawing.Point(7, 803);
+            this.totalApp_label.Name = "totalApp_label";
+            this.totalApp_label.Size = new System.Drawing.Size(0, 18);
+            this.totalApp_label.TabIndex = 5;
             // 
             // dataPanel
             // 
             this.dataPanel.BackColor = System.Drawing.Color.Transparent;
-            this.dataPanel.Controls.Add(this.search_panel);
+            this.dataPanel.Controls.Add(this.noAppointments_labe);
+            this.dataPanel.Controls.Add(this.date_label);
+            this.dataPanel.Controls.Add(this.label13);
             this.dataPanel.Controls.Add(this.tools_panel);
             this.dataPanel.Controls.Add(this.todayData);
             this.dataPanel.Controls.Add(this.total_label);
             this.dataPanel.Location = new System.Drawing.Point(6, 6);
             this.dataPanel.Name = "dataPanel";
-            this.dataPanel.Size = new System.Drawing.Size(1673, 783);
+            this.dataPanel.Size = new System.Drawing.Size(1673, 794);
             this.dataPanel.TabIndex = 4;
+            // 
+            // noAppointments_labe
+            // 
+            this.noAppointments_labe.AutoSize = true;
+            this.noAppointments_labe.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.noAppointments_labe.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.noAppointments_labe.Location = new System.Drawing.Point(650, 433);
+            this.noAppointments_labe.Name = "noAppointments_labe";
+            this.noAppointments_labe.Size = new System.Drawing.Size(343, 29);
+            this.noAppointments_labe.TabIndex = 31;
+            this.noAppointments_labe.Text = "NO APPOINTMENTS TODAY!";
+            this.noAppointments_labe.Visible = false;
+            // 
+            // date_label
+            // 
+            this.date_label.AutoSize = true;
+            this.date_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.date_label.ForeColor = System.Drawing.Color.DimGray;
+            this.date_label.Location = new System.Drawing.Point(1426, 766);
+            this.date_label.Name = "date_label";
+            this.date_label.Size = new System.Drawing.Size(36, 18);
+            this.date_label.TabIndex = 26;
+            this.date_label.Text = "date";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.DimGray;
+            this.label13.Location = new System.Drawing.Point(9, 766);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(45, 18);
+            this.label13.TabIndex = 25;
+            this.label13.Text = "count";
+            // 
+            // tools_panel
+            // 
+            this.tools_panel.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.tools_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tools_panel.Controls.Add(this.rem_label);
+            this.tools_panel.Controls.Add(this.saveToCsv_button);
+            this.tools_panel.Controls.Add(this.refresh_label);
+            this.tools_panel.Controls.Add(this.search_panel);
+            this.tools_panel.Controls.Add(this.refresh_button);
+            this.tools_panel.Controls.Add(this.importCSV_label);
+            this.tools_panel.Controls.Add(this.umportFromCsv_button);
+            this.tools_panel.Controls.Add(this.reminders_label);
+            this.tools_panel.Controls.Add(this.reminders_button);
+            this.tools_panel.Controls.Add(this.label5);
+            this.tools_panel.Controls.Add(this.label4);
+            this.tools_panel.Controls.Add(this.settings_button);
+            this.tools_panel.Controls.Add(this.label3);
+            this.tools_panel.Controls.Add(this.label2);
+            this.tools_panel.Controls.Add(this.filter_button);
+            this.tools_panel.Controls.Add(this.search_label);
+            this.tools_panel.Controls.Add(this.search_button);
+            this.tools_panel.Controls.Add(this.addAppointment_button);
+            this.tools_panel.Location = new System.Drawing.Point(6, 15);
+            this.tools_panel.Name = "tools_panel";
+            this.tools_panel.Size = new System.Drawing.Size(1664, 89);
+            this.tools_panel.TabIndex = 13;
+            // 
+            // rem_label
+            // 
+            this.rem_label.AutoSize = true;
+            this.rem_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rem_label.ForeColor = System.Drawing.Color.Maroon;
+            this.rem_label.Location = new System.Drawing.Point(1049, 0);
+            this.rem_label.Name = "rem_label";
+            this.rem_label.Size = new System.Drawing.Size(27, 29);
+            this.rem_label.TabIndex = 25;
+            this.rem_label.Text = "0";
+            // 
+            // saveToCsv_button
+            // 
+            this.saveToCsv_button.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.saveToCsv_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("saveToCsv_button.BackgroundImage")));
+            this.saveToCsv_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.saveToCsv_button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.saveToCsv_button.FlatAppearance.BorderSize = 0;
+            this.saveToCsv_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveToCsv_button.Location = new System.Drawing.Point(502, 9);
+            this.saveToCsv_button.Name = "saveToCsv_button";
+            this.saveToCsv_button.Size = new System.Drawing.Size(64, 54);
+            this.saveToCsv_button.TabIndex = 30;
+            this.saveToCsv_button.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.saveToCsv_button.UseVisualStyleBackColor = false;
+            this.saveToCsv_button.Click += new System.EventHandler(this.saveToCsv_button_Click);
+            // 
+            // refresh_label
+            // 
+            this.refresh_label.AutoSize = true;
+            this.refresh_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.refresh_label.Location = new System.Drawing.Point(335, 63);
+            this.refresh_label.Name = "refresh_label";
+            this.refresh_label.Size = new System.Drawing.Size(89, 20);
+            this.refresh_label.TabIndex = 29;
+            this.refresh_label.Text = "REFRESH";
             // 
             // search_panel
             // 
             this.search_panel.Controls.Add(this.linkLabel1);
             this.search_panel.Controls.Add(this.label12);
             this.search_panel.Controls.Add(this.search_text);
-            this.search_panel.Location = new System.Drawing.Point(361, 674);
+            this.search_panel.Location = new System.Drawing.Point(1227, 1);
             this.search_panel.Name = "search_panel";
             this.search_panel.Size = new System.Drawing.Size(435, 89);
             this.search_panel.TabIndex = 24;
@@ -186,67 +301,6 @@ namespace Appointments_App
             this.search_text.TabIndex = 0;
             this.search_text.TextChanged += new System.EventHandler(this.search_text_TextChanged);
             // 
-            // tools_panel
-            // 
-            this.tools_panel.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.tools_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tools_panel.Controls.Add(this.rem_label);
-            this.tools_panel.Controls.Add(this.saveToCsv_button);
-            this.tools_panel.Controls.Add(this.refresh_label);
-            this.tools_panel.Controls.Add(this.refresh_button);
-            this.tools_panel.Controls.Add(this.importCSV_label);
-            this.tools_panel.Controls.Add(this.umportFromCsv_button);
-            this.tools_panel.Controls.Add(this.reminders_label);
-            this.tools_panel.Controls.Add(this.reminders_button);
-            this.tools_panel.Controls.Add(this.label5);
-            this.tools_panel.Controls.Add(this.label4);
-            this.tools_panel.Controls.Add(this.settings_button);
-            this.tools_panel.Controls.Add(this.label3);
-            this.tools_panel.Controls.Add(this.label2);
-            this.tools_panel.Controls.Add(this.filter_button);
-            this.tools_panel.Controls.Add(this.search_label);
-            this.tools_panel.Controls.Add(this.search_button);
-            this.tools_panel.Controls.Add(this.addAppointment_button);
-            this.tools_panel.Location = new System.Drawing.Point(6, 15);
-            this.tools_panel.Name = "tools_panel";
-            this.tools_panel.Size = new System.Drawing.Size(1664, 89);
-            this.tools_panel.TabIndex = 13;
-            // 
-            // rem_label
-            // 
-            this.rem_label.AutoSize = true;
-            this.rem_label.Location = new System.Drawing.Point(1037, 0);
-            this.rem_label.Name = "rem_label";
-            this.rem_label.Size = new System.Drawing.Size(95, 29);
-            this.rem_label.TabIndex = 25;
-            this.rem_label.Text = "label13";
-            // 
-            // saveToCsv_button
-            // 
-            this.saveToCsv_button.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.saveToCsv_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("saveToCsv_button.BackgroundImage")));
-            this.saveToCsv_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.saveToCsv_button.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.saveToCsv_button.FlatAppearance.BorderSize = 0;
-            this.saveToCsv_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveToCsv_button.Location = new System.Drawing.Point(443, 9);
-            this.saveToCsv_button.Name = "saveToCsv_button";
-            this.saveToCsv_button.Size = new System.Drawing.Size(64, 54);
-            this.saveToCsv_button.TabIndex = 30;
-            this.saveToCsv_button.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.saveToCsv_button.UseVisualStyleBackColor = false;
-            this.saveToCsv_button.Click += new System.EventHandler(this.saveToCsv_button_Click);
-            // 
-            // refresh_label
-            // 
-            this.refresh_label.AutoSize = true;
-            this.refresh_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.refresh_label.Location = new System.Drawing.Point(276, 63);
-            this.refresh_label.Name = "refresh_label";
-            this.refresh_label.Size = new System.Drawing.Size(89, 20);
-            this.refresh_label.TabIndex = 29;
-            this.refresh_label.Text = "REFRESH";
-            // 
             // refresh_button
             // 
             this.refresh_button.BackColor = System.Drawing.SystemColors.InactiveBorder;
@@ -255,7 +309,7 @@ namespace Appointments_App
             this.refresh_button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.refresh_button.FlatAppearance.BorderSize = 0;
             this.refresh_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.refresh_button.Location = new System.Drawing.Point(295, 6);
+            this.refresh_button.Location = new System.Drawing.Point(354, 6);
             this.refresh_button.Name = "refresh_button";
             this.refresh_button.Size = new System.Drawing.Size(55, 54);
             this.refresh_button.TabIndex = 28;
@@ -267,7 +321,7 @@ namespace Appointments_App
             // 
             this.importCSV_label.AutoSize = true;
             this.importCSV_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.importCSV_label.Location = new System.Drawing.Point(580, 63);
+            this.importCSV_label.Location = new System.Drawing.Point(643, 63);
             this.importCSV_label.Name = "importCSV_label";
             this.importCSV_label.Size = new System.Drawing.Size(123, 20);
             this.importCSV_label.TabIndex = 27;
@@ -281,18 +335,19 @@ namespace Appointments_App
             this.umportFromCsv_button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.umportFromCsv_button.FlatAppearance.BorderSize = 0;
             this.umportFromCsv_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.umportFromCsv_button.Location = new System.Drawing.Point(605, 6);
+            this.umportFromCsv_button.Location = new System.Drawing.Point(668, 6);
             this.umportFromCsv_button.Name = "umportFromCsv_button";
             this.umportFromCsv_button.Size = new System.Drawing.Size(64, 54);
             this.umportFromCsv_button.TabIndex = 26;
             this.umportFromCsv_button.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.umportFromCsv_button.UseVisualStyleBackColor = false;
+            this.umportFromCsv_button.Click += new System.EventHandler(this.umportFromCsv_button_Click);
             // 
             // reminders_label
             // 
             this.reminders_label.AutoSize = true;
             this.reminders_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reminders_label.Location = new System.Drawing.Point(958, 63);
+            this.reminders_label.Location = new System.Drawing.Point(970, 63);
             this.reminders_label.Name = "reminders_label";
             this.reminders_label.Size = new System.Drawing.Size(109, 20);
             this.reminders_label.TabIndex = 25;
@@ -306,7 +361,7 @@ namespace Appointments_App
             this.reminders_button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.reminders_button.FlatAppearance.BorderSize = 0;
             this.reminders_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.reminders_button.Location = new System.Drawing.Point(979, 6);
+            this.reminders_button.Location = new System.Drawing.Point(991, 6);
             this.reminders_button.Name = "reminders_button";
             this.reminders_button.Size = new System.Drawing.Size(59, 54);
             this.reminders_button.TabIndex = 24;
@@ -317,7 +372,7 @@ namespace Appointments_App
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(408, 63);
+            this.label5.Location = new System.Drawing.Point(467, 63);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(127, 20);
             this.label5.TabIndex = 21;
@@ -327,7 +382,7 @@ namespace Appointments_App
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(784, 63);
+            this.label4.Location = new System.Drawing.Point(826, 63);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(91, 20);
             this.label4.TabIndex = 19;
@@ -341,7 +396,7 @@ namespace Appointments_App
             this.settings_button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.settings_button.FlatAppearance.BorderSize = 0;
             this.settings_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.settings_button.Location = new System.Drawing.Point(799, 6);
+            this.settings_button.Location = new System.Drawing.Point(841, 6);
             this.settings_button.Name = "settings_button";
             this.settings_button.Size = new System.Drawing.Size(59, 54);
             this.settings_button.TabIndex = 18;
@@ -351,17 +406,17 @@ namespace Appointments_App
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(1123, 63);
+            this.label3.Location = new System.Drawing.Point(56, 63);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(170, 20);
+            this.label3.Size = new System.Drawing.Size(46, 20);
             this.label3.TabIndex = 17;
-            this.label3.Text = "ADD APPOINTMENT";
+            this.label3.Text = "ADD";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(160, 63);
+            this.label2.Location = new System.Drawing.Point(198, 63);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 20);
             this.label2.TabIndex = 16;
@@ -375,7 +430,7 @@ namespace Appointments_App
             this.filter_button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.filter_button.FlatAppearance.BorderSize = 0;
             this.filter_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.filter_button.Location = new System.Drawing.Point(153, 9);
+            this.filter_button.Location = new System.Drawing.Point(191, 8);
             this.filter_button.Name = "filter_button";
             this.filter_button.Size = new System.Drawing.Size(76, 49);
             this.filter_button.TabIndex = 15;
@@ -387,7 +442,7 @@ namespace Appointments_App
             // 
             this.search_label.AutoSize = true;
             this.search_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.search_label.Location = new System.Drawing.Point(32, 63);
+            this.search_label.Location = new System.Drawing.Point(1124, 67);
             this.search_label.Name = "search_label";
             this.search_label.Size = new System.Drawing.Size(79, 20);
             this.search_label.TabIndex = 14;
@@ -401,7 +456,7 @@ namespace Appointments_App
             this.search_button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.search_button.FlatAppearance.BorderSize = 0;
             this.search_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.search_button.Location = new System.Drawing.Point(30, -1);
+            this.search_button.Location = new System.Drawing.Point(1122, 3);
             this.search_button.Name = "search_button";
             this.search_button.Size = new System.Drawing.Size(81, 60);
             this.search_button.TabIndex = 13;
@@ -417,7 +472,7 @@ namespace Appointments_App
             this.addAppointment_button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.addAppointment_button.FlatAppearance.BorderSize = 0;
             this.addAppointment_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addAppointment_button.Location = new System.Drawing.Point(1168, 6);
+            this.addAppointment_button.Location = new System.Drawing.Point(51, 4);
             this.addAppointment_button.Name = "addAppointment_button";
             this.addAppointment_button.Size = new System.Drawing.Size(66, 59);
             this.addAppointment_button.TabIndex = 12;
@@ -446,7 +501,7 @@ namespace Appointments_App
             this.todayData.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.todayData.RowTemplate.Height = 24;
             this.todayData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.todayData.Size = new System.Drawing.Size(1664, 663);
+            this.todayData.Size = new System.Drawing.Size(1664, 646);
             this.todayData.TabIndex = 3;
             this.todayData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.todayData_CellContentClick);
             // 
@@ -506,7 +561,7 @@ namespace Appointments_App
             this.scheduledAppointmentsTab.Location = new System.Drawing.Point(4, 38);
             this.scheduledAppointmentsTab.Name = "scheduledAppointmentsTab";
             this.scheduledAppointmentsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scheduledAppointmentsTab.Size = new System.Drawing.Size(1625, 813);
+            this.scheduledAppointmentsTab.Size = new System.Drawing.Size(1685, 815);
             this.scheduledAppointmentsTab.TabIndex = 1;
             this.scheduledAppointmentsTab.Text = "Scheduled";
             this.scheduledAppointmentsTab.UseVisualStyleBackColor = true;
@@ -560,7 +615,7 @@ namespace Appointments_App
             this.unscheduledAppointmentsTab.Controls.Add(this.panel1);
             this.unscheduledAppointmentsTab.Location = new System.Drawing.Point(4, 38);
             this.unscheduledAppointmentsTab.Name = "unscheduledAppointmentsTab";
-            this.unscheduledAppointmentsTab.Size = new System.Drawing.Size(1625, 813);
+            this.unscheduledAppointmentsTab.Size = new System.Drawing.Size(1685, 815);
             this.unscheduledAppointmentsTab.TabIndex = 2;
             this.unscheduledAppointmentsTab.Text = "All";
             this.unscheduledAppointmentsTab.UseVisualStyleBackColor = true;
@@ -835,7 +890,7 @@ namespace Appointments_App
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1695, 868);
+            this.ClientSize = new System.Drawing.Size(1695, 862);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -846,12 +901,13 @@ namespace Appointments_App
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.todayAppointmentsTab.ResumeLayout(false);
+            this.todayAppointmentsTab.PerformLayout();
             this.dataPanel.ResumeLayout(false);
             this.dataPanel.PerformLayout();
-            this.search_panel.ResumeLayout(false);
-            this.search_panel.PerformLayout();
             this.tools_panel.ResumeLayout(false);
             this.tools_panel.PerformLayout();
+            this.search_panel.ResumeLayout(false);
+            this.search_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.todayData)).EndInit();
             this.scheduledAppointmentsTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.doneData)).EndInit();
@@ -928,6 +984,10 @@ namespace Appointments_App
         private TextBox search_text;
         private LinkLabel linkLabel1;
         public  Label rem_label;
+        private Label totalApp_label;
+        private Label label13;
+        private Label date_label;
+        private Label noAppointments_labe;
     }
 }
 

@@ -25,8 +25,10 @@ namespace Appointments_App.Classes
         private int done;
         private List<comment> comments;
         private List<reminder> reminders;
+        private int followup;
+        int followUpParentId;
 
-        public appointment(string appointmentDesc, DateTime appointmentDate, int appointmentTypeId, string personId, string personName, string personSurname, string tel, DateTime dateCreated, string intermediary, string additionalPersId, string additionalPersName, string additionalPersSurname, string additionalPersTel, int done)
+        public appointment(string appointmentDesc, DateTime appointmentDate, int appointmentTypeId, string personId, string personName, string personSurname, string tel, DateTime dateCreated, string intermediary, string additionalPersId, string additionalPersName, string additionalPersSurname, string additionalPersTel, int done, int followup, int followUpParentId)
         {
             this.AppointmentDesc = appointmentDesc;
             this.AppointmentDate = appointmentDate;
@@ -43,9 +45,11 @@ namespace Appointments_App.Classes
             this.AdditionalPersonTel = additionalPersTel;
             this.Done = done;
             this.Reminders = reminders;
+            this.Followup = followup;
+            this.FollowUpParentId = followUpParentId;
         }
 
-        public appointment(int appointmentId, string appointmentDesc, DateTime appointmentDate, int appointmentTypeId, string personId, string personName, string personSurname, string tel, DateTime dateCreated, string intermediary, string additionalPersId, string additionalPersName, string additionalPersSurname, string additionalPersTel, int done, List<comment> comments, List<reminder> reminders)
+        public appointment(int appointmentId, string appointmentDesc, DateTime appointmentDate, int appointmentTypeId, string personId, string personName, string personSurname, string tel, DateTime dateCreated, string intermediary, string additionalPersId, string additionalPersName, string additionalPersSurname, string additionalPersTel, int done, List<comment> comments, List<reminder> reminders, int followup, int followUpParentId)
         {
             this.AppointmentId = appointmentId;
             this.AppointmentDesc = appointmentDesc;
@@ -64,6 +68,29 @@ namespace Appointments_App.Classes
             this.Done = done;
             this.Comments = comments;
             this.Reminders = reminders;
+            this.Followup = followup;
+            this.FollowUpParentId = followUpParentId;
+        }
+
+        public appointment(int appointmentId, string appointmentDesc, DateTime appointmentDate, int appointmentTypeId, string personId, string personName, string personSurname, string tel, DateTime dateCreated, string intermediary, string additionalPersId, string additionalPersName, string additionalPersSurname, string additionalPersTel, int done, int followup, int followUpParentId)
+        {
+            this.AppointmentId = appointmentId;
+            this.AppointmentDesc = appointmentDesc;
+            this.AppointmentDate = appointmentDate;
+            this.AppointmentTypeId = appointmentTypeId;
+            this.PersonId = personId;
+            this.PersonName = personName;
+            this.PersonSurname = personSurname;
+            this.Tel = tel;
+            this.DateCreated = dateCreated;
+            this.Intermediary = intermediary;
+            this.AdditionalPersonId = additionalPersId;
+            this.AdditionalPersonName = additionalPersName;
+            this.AdditionalPersonSurname = additionalPersSurname;
+            this.AdditionalPersonTel = additionalPersTel;
+            this.Done = done;
+            this.Followup = followup;
+            this.FollowUpParentId = followUpParentId;
         }
 
         public string AppointmentDesc { get => appointmentDesc; set => appointmentDesc = value; }
@@ -83,5 +110,7 @@ namespace Appointments_App.Classes
         public List<comment> Comments { get => comments; set => comments = value; }
         public int AppointmentId { get => appointmentId; set => appointmentId = value; }
         public List<reminder> Reminders { get => reminders; set => reminders = value; }
+        public int Followup { get => followup; set => followup = value; }
+        public int FollowUpParentId { get => followUpParentId; set => followUpParentId = value; }
     }
 }

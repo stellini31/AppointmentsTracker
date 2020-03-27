@@ -15,8 +15,12 @@ namespace Appointments_App.GUI
     public partial class AddAppointment : Form
     {
         database dbConn;
+        appointment parentApp;
+        int followup = 0;
+        int followUpParentId = -1;
+        EditAppointment ea;
 
-        public AddAppointment()
+        public AddAppointment(appointment a = null, EditAppointment ea = null)
         {
             InitializeComponent();
             dbConn = new database();
@@ -24,6 +28,8 @@ namespace Appointments_App.GUI
             error_label.Visible = false;
             addReminder_check.Checked = false;
             datePicker.MinDate = DateTime.Now;
+            this.parentApp = a;
+            this.ea = ea;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -63,19 +69,50 @@ namespace Appointments_App.GUI
             string intermediary = intermediary_text.Text.Replace("'", ""); 
             int done = 0;
 
-            if(description_text.Text != "" && description_text.Text != "" && id1_text.Text != "" &&  name1_text.Text != "" && surname1_text.Text != "" && tel1_text.Text != "")
+            if(description_text.Text != "" && id1_text.Text != "" &&  name1_text.Text != "" && surname1_text.Text != "" && tel1_text.Text != "")
             {
-                appointment app = new appointment(appointmentDesc, datetime, appointmentTypeId, person1Id, person1Name, person1Surname, person1Tel, appointmentCreated, intermediary, person2Id, person2Name, person2Surname, person2Tel, done);
+                //Saving Appointment
+                appointment app = new appointment(appointmentDesc, datetime, appointmentTypeId, person1Id, person1Name, person1Surname, person1Tel, appointmentCreated, intermediary, person2Id, person2Name, person2Surname, person2Tel, done, this.followup, this.followUpParentId);
                 dbConn.SaveAppointment(app);
-                int appointmentId = dbConn.getLastAppointmentId();
-                string reminderMessage = remMessage_text.Text.Replace("'", "");
 
+                int appointmentId = dbConn.getLastAppointmentId();
+
+                //Saving Comment
+                if(parentApp == null)
+                {
+                    string commentText = comment_text.Text.Replace("'", "");
+                    if (commentText != "")
+                    {
+                        dbConn.saveComment(commentText, 1);
+                    }
+                }
+                else
+                {
+                    //For Parent
+                    string commentDescription = "Follow Up Appoitnment Created";
+                    dbConn.saveComment(commentDescription, 2, parentApp.AppointmentId);
+                    ea.addComment(commentDescription, DateTime.Now);
+
+                    //For self appointment
+                    string commentText = comment_text.Text.Replace("'", "");
+                    if (commentText != "")
+                    {
+                        dbConn.saveComment(commentText, 1);
+                    }
+
+                    //Load All Follow Ups
+                    ea.loadFollowUps();
+                }
+
+                //Saving Reminder
+                string reminderMessage = remMessage_text.Text.Replace("'", "");
                 if (addReminder_check.Checked)
                 {
                     reminder rem = new reminder(Convert.ToDateTime(reminder_datetime.Text), reminderMessage, appointmentId, 0);
                     dbConn.saveReminder(rem);
                 }
 
+                //Resetting form
                 saved_label.Visible = true;
                 hide_success_label.Interval = 3000;
                 hide_success_label.Tick += hide_success_label_Tick;
@@ -97,18 +134,19 @@ namespace Appointments_App.GUI
                 surname2_text.Enabled = false;
                 tel2_text.Enabled = false;
                 addPerson_check.Checked = false;
-                string commentText = comment_text.Text.Replace("'", "");
-                if (commentText != "")
-                {
-                    dbConn.saveComment(commentText, 1);
-                }
+                
                 comment_text.Text = "";
                 remMessage_text.Text = "";
                 addReminder_check.Checked = false;
-
             }
-            else 
+            else   // necessary fields are empty
             {
+                if (description_text.Text == "") required_desc.Visible = true;
+                if (id1_text.Text == "") required_id.Visible = true;
+                if (name1_text.Text == "") required_name.Visible = true;
+                if (surname1_text.Text == "") required_surname.Visible = true;
+                if (tel1_text.Text == "") required_tel.Visible = true;
+
                 error_label.Visible = true;
                 hide_error_label.Interval = 3000;
                 hide_error_label.Tick += hide_error_label_Tick;
@@ -118,17 +156,32 @@ namespace Appointments_App.GUI
 
         private void AddAppointment_Load(object sender, EventArgs e)
         {
+            //Lloading appointment types
             List<string> Types = dbConn.getAllAppointmentTypes();
-
             foreach(string type in Types)
             {
                 types_combo.Items.Add(type);
             }
-
             types_combo.SelectedIndex = 0;
-        }
 
-     
+            //Load parent appointment details if any
+            if(parentApp != null)
+            {
+                this.followup = 1;
+                this.followUpParentId = parentApp.AppointmentId;
+
+                description_text.Text = "FU: " + parentApp.AppointmentDesc;
+                intermediary_text.Text = parentApp.Intermediary;
+                id1_text.Text = parentApp.PersonId;
+                name1_text.Text = parentApp.PersonName;
+                surname1_text.Text = parentApp.PersonSurname;
+                tel1_text.Text = parentApp.Tel;
+                id2_text.Text = parentApp.AdditionalPersonId;
+                name2_text.Text = parentApp.AdditionalPersonName;
+                surname2_text.Text = parentApp.AdditionalPersonSurname;
+                tel2_text.Text = parentApp.AdditionalPersonTel;
+            }
+        }
 
         private void hide_success_label_Tick(object sender, EventArgs e)
         {

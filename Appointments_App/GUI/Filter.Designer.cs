@@ -186,7 +186,7 @@
             "All Dates",
             "On",
             "Before",
-            "After",
+            "From",
             "Between"});
             this.scheduleDate_combo.Location = new System.Drawing.Point(141, 59);
             this.scheduleDate_combo.Name = "scheduleDate_combo";
@@ -204,7 +204,7 @@
             "All Dates",
             "On",
             "Before",
-            "After",
+            "From",
             "Between"});
             this.createdDate_combo.Location = new System.Drawing.Point(141, 183);
             this.createdDate_combo.Name = "createdDate_combo";

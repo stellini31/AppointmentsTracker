@@ -41,7 +41,7 @@ namespace Appointments_App.GUI
 
                 Panel p = addPanel(rem.AppointmentId, rem.ReminderId, reminderMessage, startPosition, endPosition);
                 reminders_panel.Controls.Add(p);
-                endPosition += 60;
+                endPosition += 45;
             }
 
         }
@@ -49,23 +49,30 @@ namespace Appointments_App.GUI
         Panel addPanel(int appointmentId, int reminderId, string reminderMessage, int start, int end)
         {
             Panel p = new Panel();
-            p.Name = appointmentId.ToString() + "panel";
+            p.Name = appointmentId.ToString();
             p.ForeColor = SystemColors.InactiveBorder;
             p.BackColor = SystemColors.InactiveBorder;
             p.Width = 750;
-            p.Height = 45;
+            p.Height = 32;
             p.Location = new Point(start, end);
 
             Label l = new Label();
-            l.Name = appointmentId.ToString();
+            l.Name = appointmentId.ToString() + "_label";
             l.Width = 550;
-            l.Height = 43;
+            l.Height = p.Height;
             l.BackColor = Color.Transparent;
             l.ForeColor = Color.Black;
             l.Font = new Font("Microsoft Sans Serif", 10);
             l.Text = reminderMessage;
             l.Location = new Point(20, 0);
             l.TextAlign = ContentAlignment.MiddleLeft;
+            l.Cursor = Cursors.Hand;
+            l.Click += (s, e) =>
+            {
+                appointment a = dbConn.getAppointmentById(appointmentId);
+                EditAppointment ea = new EditAppointment(a);
+                ea.ShowDialog();
+            };
             p.Controls.Add(l);
 
             Button b = new Button();
@@ -85,19 +92,17 @@ namespace Appointments_App.GUI
                 dbConn.dismissReminder(remindId);
                 p.Enabled = false;
                 string count = (todayReminders.Count() - 1).ToString();
-                app.setTodayReminderCount(count);
-               // app.UpdateLabelValue(count);
-
+                app.updateRemindersCount(count);
             };
             p.Controls.Add(b);
 
-            Label line = new Label();
+            /*Label line = new Label();
             line.Height = 1;
             line.Width = 750;
             line.Dock = DockStyle.Bottom;
             line.BackColor = Color.Black;
             line.Location = new Point(0, 45);
-            p.Controls.Add(line);
+            p.Controls.Add(line);*/
 
             return p;
         }
@@ -106,8 +111,7 @@ namespace Appointments_App.GUI
         {
             dbConn.dismissAllTodayReminders();
             string count = 0.ToString();
-            app.setTodayReminderCount(count);
-            //app.UpdateLabelValue(count);
+            app.updateRemindersCount(count);
             this.Close();
         }
 
