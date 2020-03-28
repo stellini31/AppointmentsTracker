@@ -162,6 +162,46 @@ namespace Appointments_App.Database
             return appointments;
         }
 
+        public DataTable getTodayAppointmentsDataTable()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Description", typeof(string));
+            dt.Columns.Add("Name", typeof(string));
+            dt.Columns.Add("Surname", typeof(string));
+            dt.Columns.Add("Time", typeof(string));
+            dt.Columns.Add("Appointment Type", typeof(string));
+            dt.Columns.Add("Last Comment", typeof(string));
+            using (OleDbConnection connection = new OleDbConnection(this.connString))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand command = new OleDbCommand("SELECT * FROM Appointments WHERE appointment_date > DATE() AND appointment_date < DATE() +1 ORDER BY appointment_date;", connection);
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    int appId = Int32.Parse(reader[0].ToString());
+                    string desc = reader[1].ToString();
+                    String appointmentTime = Convert.ToDateTime(reader[2].ToString()).ToShortTimeString();
+                    int typeId = Int32.Parse(reader[4].ToString());
+                    string appointmentType = this.getAppointmentTypeDesc(typeId);
+                    string persName = reader[5].ToString();
+                    string persSurname = reader[6].ToString();
+                    List<comment> comments = this.getAppointmentCommentsById(appId);
+
+                    string lastComment = "";
+                    if(comments.Count > 0)
+                    {
+                        lastComment = comments[comments.Count() - 1].CommentText;
+                    }
+                   
+                    dt.Rows.Add( desc, persName, persSurname, appointmentTime, appointmentType, lastComment);
+                }
+                connection.Close();
+                reader.Close();
+            }
+            return dt;
+        }
+
         public List<string> getAllAppointmentTypes()
         {
             string query = "SELECT  appointment_type FROM AppointmentTypes;";
@@ -544,7 +584,6 @@ namespace Appointments_App.Database
         {
             string query = "UPDATE Appointments SET appointment_description = '" + a.AppointmentDesc + "', appointment_date = '" + a.AppointmentDate + "', appointment_type_id = '" + a.AppointmentTypeId + "', person_id = '" + a.PersonId + "', person_name = '" + a.PersonName + "', person_surname = '" + a.PersonSurname + "', person_tel = '" + a.Tel + "', appointment_created = '" + a.DateCreated + "', intermediary_name = '" + a.Intermediary + "', additional_person_id = '" + a.AdditionalPersonId + "', additional_pers_name = '" + a.AdditionalPersonName + "', additional_pers_surname = '" + a.AdditionalPersonSurname + "', additional_pers_tel = '" + a.AdditionalPersonTel + "', done = " + a.Done + ", followup = " + a.Followup + ", parentAppointment_id = " + a.FollowUpParentId + " WHERE ID = " + a.AppointmentId + ";";  
 
-            
             using (OleDbConnection connection = new OleDbConnection(this.connString))
             {
                 connection.Open();
@@ -552,7 +591,6 @@ namespace Appointments_App.Database
                 command.ExecuteNonQuery();
                 connection.Close();
             }
-
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Appointments_App.Tools
 {
     public static class Export
     {
-        public static void exportAppointments(List<appointment> appointmentsToSave, Dictionary<int, string> appTypes, string fileName)
+        public static void exportAppointments(List<appointment> appointmentsToSave, Dictionary<int, string> appTypes, string fileName, ProgressBar pb)
         {
             SaveFileDialog savetoCSV = new SaveFileDialog();
             savetoCSV.Title = "Save Appointments as CSV";
@@ -24,6 +24,10 @@ namespace Appointments_App.Tools
 
             if(savetoCSV.ShowDialog() == DialogResult.OK)
             {
+                pb.Visible = true;
+                pb.Minimum = 1;
+                pb.Maximum = appointmentsToSave.Count();
+
                 using (Stream s = File.Open(savetoCSV.FileName, FileMode.CreateNew))
                 using (StreamWriter sw = new StreamWriter(s))
                 {
@@ -47,8 +51,9 @@ namespace Appointments_App.Tools
                         string followUp = a.Followup.ToString();
 
                         string newLline = string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14}", appDesc, appDate, appType, pers1Id, pers1Name, pers1Surname, tel, appCreated, intermediary, pers2Id, pers2Name, pers2Ssurname, pers2Tel, done, followUp);
-
                         sw.WriteLine(newLline);
+
+                        pb.PerformStep();
                     }
                 }
             }

@@ -195,7 +195,7 @@ namespace Appointments_App.GUI
             p.BackColor = status == 1 ? Color.LightGreen : Color.Orange;
 
             LinkLabel appId = new LinkLabel();
-            appId.Width = 20;
+            appId.Width = 30;
             appId.Height = 25;
             appId.Text = appointmentId.ToString();
             appId.Location = new Point(15);

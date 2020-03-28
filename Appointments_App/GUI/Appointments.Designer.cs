@@ -30,11 +30,13 @@ namespace Appointments_App
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Appointments));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.todayAppointmentsTab = new System.Windows.Forms.TabPage();
             this.totalApp_label = new System.Windows.Forms.Label();
             this.dataPanel = new System.Windows.Forms.Panel();
+            this.pb = new System.Windows.Forms.ProgressBar();
             this.noAppointments_labe = new System.Windows.Forms.Label();
             this.date_label = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -61,12 +63,6 @@ namespace Appointments_App
             this.search_button = new System.Windows.Forms.Button();
             this.addAppointment_button = new System.Windows.Forms.Button();
             this.todayData = new System.Windows.Forms.DataGridView();
-            this.title_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.surname_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.appointment_time_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.issueType_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.comments_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.total_label = new System.Windows.Forms.Label();
             this.scheduledAppointmentsTab = new System.Windows.Forms.TabPage();
             this.doneData = new System.Windows.Forms.DataGridView();
@@ -98,6 +94,7 @@ namespace Appointments_App
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.created_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pbImportHider = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.todayAppointmentsTab.SuspendLayout();
             this.dataPanel.SuspendLayout();
@@ -150,6 +147,7 @@ namespace Appointments_App
             // dataPanel
             // 
             this.dataPanel.BackColor = System.Drawing.Color.Transparent;
+            this.dataPanel.Controls.Add(this.pb);
             this.dataPanel.Controls.Add(this.noAppointments_labe);
             this.dataPanel.Controls.Add(this.date_label);
             this.dataPanel.Controls.Add(this.label13);
@@ -160,6 +158,14 @@ namespace Appointments_App
             this.dataPanel.Name = "dataPanel";
             this.dataPanel.Size = new System.Drawing.Size(1673, 794);
             this.dataPanel.TabIndex = 4;
+            // 
+            // pb
+            // 
+            this.pb.Location = new System.Drawing.Point(6, 105);
+            this.pb.Name = "pb";
+            this.pb.Size = new System.Drawing.Size(1665, 11);
+            this.pb.TabIndex = 32;
+            this.pb.Visible = false;
             // 
             // noAppointments_labe
             // 
@@ -178,7 +184,7 @@ namespace Appointments_App
             this.date_label.AutoSize = true;
             this.date_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.date_label.ForeColor = System.Drawing.Color.DimGray;
-            this.date_label.Location = new System.Drawing.Point(1426, 766);
+            this.date_label.Location = new System.Drawing.Point(1434, 773);
             this.date_label.Name = "date_label";
             this.date_label.Size = new System.Drawing.Size(36, 18);
             this.date_label.TabIndex = 26;
@@ -189,7 +195,7 @@ namespace Appointments_App
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.DimGray;
-            this.label13.Location = new System.Drawing.Point(9, 766);
+            this.label13.Location = new System.Drawing.Point(9, 773);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(45, 18);
             this.label13.TabIndex = 25;
@@ -486,13 +492,6 @@ namespace Appointments_App
             this.todayData.BackgroundColor = System.Drawing.SystemColors.InactiveBorder;
             this.todayData.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.todayData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.todayData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.title_column,
-            this.name_column,
-            this.surname_column,
-            this.appointment_time_column,
-            this.issueType_column,
-            this.comments_column});
             this.todayData.GridColor = System.Drawing.SystemColors.ButtonFace;
             this.todayData.Location = new System.Drawing.Point(6, 117);
             this.todayData.MultiSelect = false;
@@ -501,50 +500,9 @@ namespace Appointments_App
             this.todayData.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.todayData.RowTemplate.Height = 24;
             this.todayData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.todayData.Size = new System.Drawing.Size(1664, 646);
+            this.todayData.Size = new System.Drawing.Size(1664, 659);
             this.todayData.TabIndex = 3;
             this.todayData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.todayData_CellContentClick);
-            // 
-            // title_column
-            // 
-            this.title_column.HeaderText = "Title";
-            this.title_column.Name = "title_column";
-            this.title_column.ReadOnly = true;
-            this.title_column.Width = 400;
-            // 
-            // name_column
-            // 
-            this.name_column.HeaderText = "Name";
-            this.name_column.Name = "name_column";
-            this.name_column.ReadOnly = true;
-            this.name_column.Width = 150;
-            // 
-            // surname_column
-            // 
-            this.surname_column.HeaderText = "Surname";
-            this.surname_column.Name = "surname_column";
-            this.surname_column.ReadOnly = true;
-            this.surname_column.Width = 150;
-            // 
-            // appointment_time_column
-            // 
-            this.appointment_time_column.HeaderText = "Time";
-            this.appointment_time_column.Name = "appointment_time_column";
-            this.appointment_time_column.ReadOnly = true;
-            // 
-            // issueType_column
-            // 
-            this.issueType_column.HeaderText = "Appointment Type";
-            this.issueType_column.Name = "issueType_column";
-            this.issueType_column.ReadOnly = true;
-            this.issueType_column.Width = 200;
-            // 
-            // comments_column
-            // 
-            this.comments_column.HeaderText = "Last Comment";
-            this.comments_column.Name = "comments_column";
-            this.comments_column.ReadOnly = true;
-            this.comments_column.Width = 300;
             // 
             // total_label
             // 
@@ -886,6 +844,10 @@ namespace Appointments_App
             this.dataGridViewTextBoxColumn10.ReadOnly = true;
             this.dataGridViewTextBoxColumn10.Width = 300;
             // 
+            // pbImportHider
+            // 
+            this.pbImportHider.Tick += new System.EventHandler(this.pbImportHider_Tick);
+            // 
             // Appointments
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -973,12 +935,6 @@ namespace Appointments_App
         private Label refresh_label;
         private Button refresh_button;
         private Button saveToCsv_button;
-        private DataGridViewTextBoxColumn title_column;
-        private DataGridViewTextBoxColumn name_column;
-        private DataGridViewTextBoxColumn surname_column;
-        private DataGridViewTextBoxColumn appointment_time_column;
-        private DataGridViewTextBoxColumn issueType_column;
-        private DataGridViewTextBoxColumn comments_column;
         private Panel search_panel;
         private Label label12;
         private TextBox search_text;
@@ -988,6 +944,8 @@ namespace Appointments_App
         private Label label13;
         private Label date_label;
         private Label noAppointments_labe;
+        private ProgressBar pb;
+        private Timer pbImportHider;
     }
 }
 

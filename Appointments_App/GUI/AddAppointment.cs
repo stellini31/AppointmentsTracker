@@ -172,6 +172,7 @@ namespace Appointments_App.GUI
 
                 description_text.Text = "FU: " + parentApp.AppointmentDesc;
                 intermediary_text.Text = parentApp.Intermediary;
+                types_combo.SelectedIndex = parentApp.AppointmentTypeId - 1;
                 id1_text.Text = parentApp.PersonId;
                 name1_text.Text = parentApp.PersonName;
                 surname1_text.Text = parentApp.PersonSurname;

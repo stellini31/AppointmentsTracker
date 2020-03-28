@@ -21,15 +21,18 @@ namespace Appointments_App
     {
         database dbConn;
         List<appointment> todayAppointments;
+        DataTable dtTodayAppoitnemts;
         List<appointment> searchedTodayAppointments = new List<appointment>();
         string todayRemindersCount;
         public int TodayAppointmentsAll;
+        int progressVisibleTime = 1500; //ms
 
         public Appointments()
         {
             InitializeComponent();
             dbConn = new database();
             this.todayAppointments = dbConn.getTodayAppointments();
+            this.dtTodayAppoitnemts = dbConn.getTodayAppointmentsDataTable();
             TodayAppointmentsAll = todayAppointments.Count();
             date_label.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy");
 
@@ -78,7 +81,11 @@ namespace Appointments_App
         private void saveToCsv_button_Click(object sender, EventArgs e)
         {
             Dictionary<int, string> appTypes = dbConn.getAllAppointmentTypesDict();
-            Export.exportAppointments(this.todayAppointments, appTypes, "Today Appointments");
+            Export.exportAppointments(this.todayAppointments, appTypes, "Today Appointments", pb);
+
+            pbImportHider.Interval = progressVisibleTime;
+            pbImportHider.Tick += pbImportHider_Tick;
+            pbImportHider.Start();
         }
 
         
@@ -87,6 +94,11 @@ namespace Appointments_App
         {
             this.todayAppointments = dbConn.getTodayAppointments();
             TodayAppointmentsAll = todayAppointments.Count();
+
+            pb.Visible = true;
+            pb.Minimum = 1;
+            pb.Maximum = TodayAppointmentsAll;
+
             this.label13.Text = "Showing " + TodayAppointmentsAll.ToString() + " out of " + dbConn.getCountAllAppointments().ToString() + " Appointments";
             this.populateTodayAppointments(this.todayAppointments);
             this.updateRemindersCount();
@@ -95,6 +107,10 @@ namespace Appointments_App
             {
                 noAppointments_labe.Hide();
             }
+
+            pbImportHider.Interval = progressVisibleTime;
+            pbImportHider.Tick += pbImportHider_Tick;
+            pbImportHider.Start();
         }
 
         private void addAppointment_button_Click(object sender, EventArgs e)
@@ -117,12 +133,6 @@ namespace Appointments_App
             rem.ShowDialog();
         }
 
-        /*public void setTodayReminderCount(string count)
-        {
-            rem_label.Refresh();
-            this.rem_label.Text = count;
-        }*/
-
         private void filter_button_Click(object sender, EventArgs e)
         {
             Filter fil = new Filter();
@@ -138,9 +148,12 @@ namespace Appointments_App
                 });
             else
             {
-                todayData.DataSource = null;
-                todayData.Rows.Clear();
-                foreach (appointment a in appointments)
+                //todayData.DataSource = null;
+                //todayData.Rows.Clear();
+
+                DataTable table = this.ConvertToDataTable(appointments);
+                
+                /*foreach (appointment a in appointments)
                 {
                     string appointmentType = dbConn.getAppointmentTypeDesc(a.AppointmentTypeId);
                     string lastComment = String.Empty;
@@ -149,8 +162,49 @@ namespace Appointments_App
                         lastComment = a.Comments[a.Comments.Count() - 1].CommentText;
                     }
                     this.todayData.Rows.Add(a.AppointmentDesc, a.PersonName, a.PersonSurname, a.AppointmentDate.ToString("HH:mm"), appointmentType, lastComment);
-                }
+                    pb.PerformStep();
+                }*/
+
+                this.todayData.DataSource = table;
+                this.todayData.Columns[0].Width = 300;
+                this.todayData.Columns[1].Width = 150;
+                this.todayData.Columns[2].Width = 150;
+                this.todayData.Columns[3].Width = 150;
+                this.todayData.Columns[4].Width = 150;
+                this.todayData.Columns[5].Width = 350;
             }
+        }
+
+        public DataTable ConvertToDataTable(List<appointment> appointments)
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("Description", typeof(string));
+            table.Columns.Add("Name", typeof(string));
+            table.Columns.Add("Surname", typeof(string));
+            table.Columns.Add("Time", typeof(string));
+            table.Columns.Add("Appointment Type", typeof(string));
+            table.Columns.Add("Last Comment", typeof(string));
+            foreach (appointment a in appointments)
+            {
+                int appId = a.AppointmentId;
+                string desc = a.AppointmentDesc;
+                String appointmentTime = a.AppointmentDate.ToShortTimeString();
+                int typeId = a.AppointmentTypeId;
+                string appointmentType = dbConn.getAppointmentTypeDesc(typeId);
+                string persName = a.PersonName;
+                string persSurname = a.PersonSurname;
+                List<comment> comments = dbConn.getAppointmentCommentsById(appId);
+
+                string lastComment = "";
+                if (comments.Count > 0)
+                {
+                    lastComment = comments[comments.Count() - 1].CommentText;
+                }
+
+                table.Rows.Add(desc, persName, persSurname, appointmentTime, appointmentType, lastComment);
+                pb.PerformStep();
+            }
+            return table;
         }
 
         //SEARCH
@@ -223,7 +277,59 @@ namespace Appointments_App
 
         private void umportFromCsv_button_Click(object sender, EventArgs e)
         {
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                pb.Visible = true;
+                int max = File.ReadAllLines(open.FileName).Count();
+                pb.Minimum = 0;
+                pb.Maximum = max;
 
+                StreamReader sr = new StreamReader(open.FileName);
+                
+                bool firstRow = true;
+
+                while(sr.Peek() >=0)
+                {
+                    string line = sr.ReadLine();
+                    if (firstRow != true)
+                    {
+                        string[] rows = line.Split(',');
+                        string title = rows[0];
+                        DateTime schedule = Convert.ToDateTime(rows[1]);
+                        int appointmentTypeId = 3;
+                        string personId = rows[3];
+                        string personName = rows[4];
+                        string personSurname = rows[5];
+                        string personTel = rows[6];
+                        DateTime created = Convert.ToDateTime(rows[7]);
+                        string intermediary = rows[8];
+                        string additionalPersonId = rows[9];
+                        string additionalPersonName = rows[10];
+                        string additionalPersonSurname = rows[11];
+                        string additionalPersonTel = rows[12];
+                        int done = Int32.Parse(rows[13]);
+                        int followUp = 0;
+
+                        appointment a = new appointment(title, schedule, appointmentTypeId, personId, personName, personSurname, personTel, created, intermediary, additionalPersonId, additionalPersonName, additionalPersonSurname, additionalPersonTel, done, followUp, -1);
+                        dbConn.SaveAppointment(a);
+                        pb.PerformStep();
+                    }
+
+                    firstRow = false;
+                }
+
+                pbImportHider.Interval = progressVisibleTime;
+                pbImportHider.Tick += pbImportHider_Tick;
+                pbImportHider.Start();
+            }
+        }
+
+        private void pbImportHider_Tick(object sender, EventArgs e)
+        {
+            pb.Visible = false;
+            pbImportHider.Stop();
         }
 
 
