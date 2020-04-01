@@ -39,13 +39,13 @@ namespace Appointments_App
             this.pb = new System.Windows.Forms.ProgressBar();
             this.noAppointments_labe = new System.Windows.Forms.Label();
             this.date_label = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
+            this.counterToday_label = new System.Windows.Forms.Label();
             this.tools_panel = new System.Windows.Forms.Panel();
             this.rem_label = new System.Windows.Forms.Label();
             this.saveToCsv_button = new System.Windows.Forms.Button();
             this.refresh_label = new System.Windows.Forms.Label();
             this.search_panel = new System.Windows.Forms.Panel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.clearSerach = new System.Windows.Forms.LinkLabel();
             this.label12 = new System.Windows.Forms.Label();
             this.search_text = new System.Windows.Forms.TextBox();
             this.refresh_button = new System.Windows.Forms.Button();
@@ -71,29 +71,32 @@ namespace Appointments_App
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.unscheduledAppointmentsTab = new System.Windows.Forms.TabPage();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button8 = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.button9 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.button10 = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.button11 = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.button12 = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.allData = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.created_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.allDate_label = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.allRemindersCount_label = new System.Windows.Forms.Label();
+            this.allExport_button = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.allSearch_panel = new System.Windows.Forms.Panel();
+            this.allSearchClear_label = new System.Windows.Forms.LinkLabel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.allSearch_text = new System.Windows.Forms.TextBox();
+            this.allRefresh_button = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.allImport_button = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.allReminders_button = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.allSettings_button = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.allFilter_button = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.allSearch_button = new System.Windows.Forms.Button();
+            this.allAddApp_button = new System.Windows.Forms.Button();
+            this.counterAll_label = new System.Windows.Forms.Label();
+            this.allAppoitnmentsData = new System.Windows.Forms.DataGridView();
             this.pbImportHider = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.todayAppointmentsTab.SuspendLayout();
@@ -104,9 +107,10 @@ namespace Appointments_App
             this.scheduledAppointmentsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.doneData)).BeginInit();
             this.unscheduledAppointmentsTab.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.allData)).BeginInit();
+            this.panel2.SuspendLayout();
+            this.allSearch_panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.allAppoitnmentsData)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -150,7 +154,7 @@ namespace Appointments_App
             this.dataPanel.Controls.Add(this.pb);
             this.dataPanel.Controls.Add(this.noAppointments_labe);
             this.dataPanel.Controls.Add(this.date_label);
-            this.dataPanel.Controls.Add(this.label13);
+            this.dataPanel.Controls.Add(this.counterToday_label);
             this.dataPanel.Controls.Add(this.tools_panel);
             this.dataPanel.Controls.Add(this.todayData);
             this.dataPanel.Controls.Add(this.total_label);
@@ -190,16 +194,16 @@ namespace Appointments_App
             this.date_label.TabIndex = 26;
             this.date_label.Text = "date";
             // 
-            // label13
+            // counterToday_label
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.DimGray;
-            this.label13.Location = new System.Drawing.Point(9, 773);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(45, 18);
-            this.label13.TabIndex = 25;
-            this.label13.Text = "count";
+            this.counterToday_label.AutoSize = true;
+            this.counterToday_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.counterToday_label.ForeColor = System.Drawing.Color.DimGray;
+            this.counterToday_label.Location = new System.Drawing.Point(9, 773);
+            this.counterToday_label.Name = "counterToday_label";
+            this.counterToday_label.Size = new System.Drawing.Size(45, 18);
+            this.counterToday_label.TabIndex = 25;
+            this.counterToday_label.Text = "count";
             // 
             // tools_panel
             // 
@@ -267,7 +271,7 @@ namespace Appointments_App
             // 
             // search_panel
             // 
-            this.search_panel.Controls.Add(this.linkLabel1);
+            this.search_panel.Controls.Add(this.clearSerach);
             this.search_panel.Controls.Add(this.label12);
             this.search_panel.Controls.Add(this.search_text);
             this.search_panel.Location = new System.Drawing.Point(1227, 1);
@@ -276,17 +280,17 @@ namespace Appointments_App
             this.search_panel.TabIndex = 24;
             this.search_panel.Visible = false;
             // 
-            // linkLabel1
+            // clearSerach
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel1.Location = new System.Drawing.Point(301, 14);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(94, 18);
-            this.linkLabel1.TabIndex = 32;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Clear Search";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.clearSerach.AutoSize = true;
+            this.clearSerach.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clearSerach.Location = new System.Drawing.Point(301, 14);
+            this.clearSerach.Name = "clearSerach";
+            this.clearSerach.Size = new System.Drawing.Size(94, 18);
+            this.clearSerach.TabIndex = 32;
+            this.clearSerach.TabStop = true;
+            this.clearSerach.Text = "Clear Search";
+            this.clearSerach.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.clearSerach_LinkClicked_1);
             // 
             // label12
             // 
@@ -434,6 +438,7 @@ namespace Appointments_App
             this.filter_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("filter_button.BackgroundImage")));
             this.filter_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.filter_button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.filter_button.Enabled = false;
             this.filter_button.FlatAppearance.BorderSize = 0;
             this.filter_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.filter_button.Location = new System.Drawing.Point(191, 8);
@@ -442,7 +447,6 @@ namespace Appointments_App
             this.filter_button.TabIndex = 15;
             this.filter_button.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.filter_button.UseVisualStyleBackColor = false;
-            this.filter_button.Click += new System.EventHandler(this.filter_button_Click);
             // 
             // search_label
             // 
@@ -500,7 +504,7 @@ namespace Appointments_App
             this.todayData.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.todayData.RowTemplate.Height = 24;
             this.todayData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.todayData.Size = new System.Drawing.Size(1664, 659);
+            this.todayData.Size = new System.Drawing.Size(1663, 653);
             this.todayData.TabIndex = 3;
             this.todayData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.todayData_CellContentClick);
             // 
@@ -569,7 +573,6 @@ namespace Appointments_App
             // 
             // unscheduledAppointmentsTab
             // 
-            this.unscheduledAppointmentsTab.Controls.Add(this.panel2);
             this.unscheduledAppointmentsTab.Controls.Add(this.panel1);
             this.unscheduledAppointmentsTab.Location = new System.Drawing.Point(4, 38);
             this.unscheduledAppointmentsTab.Name = "unscheduledAppointmentsTab";
@@ -578,271 +581,340 @@ namespace Appointments_App
             this.unscheduledAppointmentsTab.Text = "All";
             this.unscheduledAppointmentsTab.UseVisualStyleBackColor = true;
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.allDate_label);
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.counterAll_label);
+            this.panel1.Controls.Add(this.allAppoitnmentsData);
+            this.panel1.Location = new System.Drawing.Point(6, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1676, 794);
+            this.panel1.TabIndex = 5;
+            // 
+            // allDate_label
+            // 
+            this.allDate_label.AutoSize = true;
+            this.allDate_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.allDate_label.ForeColor = System.Drawing.Color.DimGray;
+            this.allDate_label.Location = new System.Drawing.Point(1432, 771);
+            this.allDate_label.Name = "allDate_label";
+            this.allDate_label.Size = new System.Drawing.Size(36, 18);
+            this.allDate_label.TabIndex = 28;
+            this.allDate_label.Text = "date";
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.button8);
+            this.panel2.Controls.Add(this.allRemindersCount_label);
+            this.panel2.Controls.Add(this.allExport_button);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.button9);
-            this.panel2.Controls.Add(this.label7);
-            this.panel2.Controls.Add(this.button10);
+            this.panel2.Controls.Add(this.allSearch_panel);
+            this.panel2.Controls.Add(this.allRefresh_button);
             this.panel2.Controls.Add(this.label8);
-            this.panel2.Controls.Add(this.button11);
+            this.panel2.Controls.Add(this.allImport_button);
             this.panel2.Controls.Add(this.label9);
+            this.panel2.Controls.Add(this.allReminders_button);
             this.panel2.Controls.Add(this.label10);
-            this.panel2.Controls.Add(this.button12);
             this.panel2.Controls.Add(this.label11);
-            this.panel2.Controls.Add(this.button13);
-            this.panel2.Controls.Add(this.button14);
-            this.panel2.Location = new System.Drawing.Point(13, 21);
+            this.panel2.Controls.Add(this.allSettings_button);
+            this.panel2.Controls.Add(this.label13);
+            this.panel2.Controls.Add(this.label14);
+            this.panel2.Controls.Add(this.allFilter_button);
+            this.panel2.Controls.Add(this.label15);
+            this.panel2.Controls.Add(this.allSearch_button);
+            this.panel2.Controls.Add(this.allAddApp_button);
+            this.panel2.Location = new System.Drawing.Point(7, 9);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1326, 89);
-            this.panel2.TabIndex = 14;
+            this.panel2.Size = new System.Drawing.Size(1664, 89);
+            this.panel2.TabIndex = 27;
             // 
-            // label1
+            // allRemindersCount_label
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(580, 63);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 20);
-            this.label1.TabIndex = 27;
-            this.label1.Text = "IMPORT DATA";
+            this.allRemindersCount_label.AutoSize = true;
+            this.allRemindersCount_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.allRemindersCount_label.ForeColor = System.Drawing.Color.Maroon;
+            this.allRemindersCount_label.Location = new System.Drawing.Point(1049, 0);
+            this.allRemindersCount_label.Name = "allRemindersCount_label";
+            this.allRemindersCount_label.Size = new System.Drawing.Size(27, 29);
+            this.allRemindersCount_label.TabIndex = 25;
+            this.allRemindersCount_label.Text = "0";
             // 
-            // button8
+            // allExport_button
             // 
-            this.button8.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.button8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button8.BackgroundImage")));
-            this.button8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button8.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button8.FlatAppearance.BorderSize = 0;
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Location = new System.Drawing.Point(605, 6);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(64, 54);
-            this.button8.TabIndex = 26;
-            this.button8.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button8.UseVisualStyleBackColor = false;
+            this.allExport_button.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.allExport_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("allExport_button.BackgroundImage")));
+            this.allExport_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.allExport_button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.allExport_button.FlatAppearance.BorderSize = 0;
+            this.allExport_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.allExport_button.Location = new System.Drawing.Point(502, 9);
+            this.allExport_button.Name = "allExport_button";
+            this.allExport_button.Size = new System.Drawing.Size(64, 54);
+            this.allExport_button.TabIndex = 30;
+            this.allExport_button.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.allExport_button.UseVisualStyleBackColor = false;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(958, 63);
+            this.label6.Location = new System.Drawing.Point(335, 63);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(109, 20);
-            this.label6.TabIndex = 25;
-            this.label6.Text = "REMINDERS";
+            this.label6.Size = new System.Drawing.Size(89, 20);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "REFRESH";
             // 
-            // button9
+            // allSearch_panel
             // 
-            this.button9.BackColor = System.Drawing.Color.Transparent;
-            this.button9.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button9.BackgroundImage")));
-            this.button9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button9.FlatAppearance.BorderSize = 0;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Location = new System.Drawing.Point(979, 6);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(59, 54);
-            this.button9.TabIndex = 24;
-            this.button9.UseVisualStyleBackColor = false;
+            this.allSearch_panel.Controls.Add(this.allSearchClear_label);
+            this.allSearch_panel.Controls.Add(this.label7);
+            this.allSearch_panel.Controls.Add(this.allSearch_text);
+            this.allSearch_panel.Location = new System.Drawing.Point(1227, 1);
+            this.allSearch_panel.Name = "allSearch_panel";
+            this.allSearch_panel.Size = new System.Drawing.Size(435, 89);
+            this.allSearch_panel.TabIndex = 24;
+            this.allSearch_panel.Visible = false;
+            // 
+            // allSearchClear_label
+            // 
+            this.allSearchClear_label.AutoSize = true;
+            this.allSearchClear_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.allSearchClear_label.Location = new System.Drawing.Point(301, 14);
+            this.allSearchClear_label.Name = "allSearchClear_label";
+            this.allSearchClear_label.Size = new System.Drawing.Size(94, 18);
+            this.allSearchClear_label.TabIndex = 32;
+            this.allSearchClear_label.TabStop = true;
+            this.allSearchClear_label.Text = "Clear Search";
+            this.allSearchClear_label.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.allSearchClear_label_LinkClicked);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(377, 63);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(20, 14);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(127, 20);
-            this.label7.TabIndex = 21;
-            this.label7.Text = "EXPORT DATA";
+            this.label7.Size = new System.Drawing.Size(57, 18);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "search:";
             // 
-            // button10
+            // allSearch_text
             // 
-            this.button10.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.button10.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button10.BackgroundImage")));
-            this.button10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button10.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button10.FlatAppearance.BorderSize = 0;
-            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.Location = new System.Drawing.Point(412, 4);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(64, 54);
-            this.button10.TabIndex = 20;
-            this.button10.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button10.UseVisualStyleBackColor = false;
+            this.allSearch_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.allSearch_text.Location = new System.Drawing.Point(22, 36);
+            this.allSearch_text.Name = "allSearch_text";
+            this.allSearch_text.Size = new System.Drawing.Size(373, 30);
+            this.allSearch_text.TabIndex = 0;
+            this.allSearch_text.TextChanged += new System.EventHandler(this.allSearch_text_TextChanged);
+            // 
+            // allRefresh_button
+            // 
+            this.allRefresh_button.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.allRefresh_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("allRefresh_button.BackgroundImage")));
+            this.allRefresh_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.allRefresh_button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.allRefresh_button.FlatAppearance.BorderSize = 0;
+            this.allRefresh_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.allRefresh_button.Location = new System.Drawing.Point(354, 6);
+            this.allRefresh_button.Name = "allRefresh_button";
+            this.allRefresh_button.Size = new System.Drawing.Size(55, 54);
+            this.allRefresh_button.TabIndex = 28;
+            this.allRefresh_button.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.allRefresh_button.UseVisualStyleBackColor = false;
+            this.allRefresh_button.Click += new System.EventHandler(this.allRefresh_button_Click);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(784, 63);
+            this.label8.Location = new System.Drawing.Point(643, 63);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(91, 20);
-            this.label8.TabIndex = 19;
-            this.label8.Text = "SETTINGS";
+            this.label8.Size = new System.Drawing.Size(123, 20);
+            this.label8.TabIndex = 27;
+            this.label8.Text = "IMPORT DATA";
             // 
-            // button11
+            // allImport_button
             // 
-            this.button11.BackColor = System.Drawing.Color.Transparent;
-            this.button11.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button11.BackgroundImage")));
-            this.button11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button11.FlatAppearance.BorderSize = 0;
-            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button11.Location = new System.Drawing.Point(799, 6);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(59, 54);
-            this.button11.TabIndex = 18;
-            this.button11.UseVisualStyleBackColor = false;
+            this.allImport_button.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.allImport_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("allImport_button.BackgroundImage")));
+            this.allImport_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.allImport_button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.allImport_button.FlatAppearance.BorderSize = 0;
+            this.allImport_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.allImport_button.Location = new System.Drawing.Point(668, 6);
+            this.allImport_button.Name = "allImport_button";
+            this.allImport_button.Size = new System.Drawing.Size(64, 54);
+            this.allImport_button.TabIndex = 26;
+            this.allImport_button.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.allImport_button.UseVisualStyleBackColor = false;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(1123, 63);
+            this.label9.Location = new System.Drawing.Point(970, 63);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(170, 20);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "ADD APPOINTMENT";
+            this.label9.Size = new System.Drawing.Size(109, 20);
+            this.label9.TabIndex = 25;
+            this.label9.Text = "REMINDERS";
+            // 
+            // allReminders_button
+            // 
+            this.allReminders_button.BackColor = System.Drawing.Color.Transparent;
+            this.allReminders_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("allReminders_button.BackgroundImage")));
+            this.allReminders_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.allReminders_button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.allReminders_button.FlatAppearance.BorderSize = 0;
+            this.allReminders_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.allReminders_button.Location = new System.Drawing.Point(991, 6);
+            this.allReminders_button.Name = "allReminders_button";
+            this.allReminders_button.Size = new System.Drawing.Size(59, 54);
+            this.allReminders_button.TabIndex = 24;
+            this.allReminders_button.UseVisualStyleBackColor = false;
+            this.allReminders_button.Click += new System.EventHandler(this.allReminders_button_Click);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(206, 63);
+            this.label10.Location = new System.Drawing.Point(467, 63);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(66, 20);
-            this.label10.TabIndex = 16;
-            this.label10.Text = "FILTER";
-            // 
-            // button12
-            // 
-            this.button12.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.button12.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button12.BackgroundImage")));
-            this.button12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button12.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button12.FlatAppearance.BorderSize = 0;
-            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Location = new System.Drawing.Point(196, 9);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(76, 49);
-            this.button12.TabIndex = 15;
-            this.button12.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button12.UseVisualStyleBackColor = false;
+            this.label10.Size = new System.Drawing.Size(127, 20);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "EXPORT DATA";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(32, 63);
+            this.label11.Location = new System.Drawing.Point(826, 63);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(79, 20);
-            this.label11.TabIndex = 14;
-            this.label11.Text = "SEARCH";
+            this.label11.Size = new System.Drawing.Size(91, 20);
+            this.label11.TabIndex = 19;
+            this.label11.Text = "SETTINGS";
             // 
-            // button13
+            // allSettings_button
             // 
-            this.button13.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.button13.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button13.BackgroundImage")));
-            this.button13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button13.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button13.FlatAppearance.BorderSize = 0;
-            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button13.Location = new System.Drawing.Point(30, -1);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(81, 60);
-            this.button13.TabIndex = 13;
-            this.button13.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button13.UseVisualStyleBackColor = false;
+            this.allSettings_button.BackColor = System.Drawing.Color.Transparent;
+            this.allSettings_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("allSettings_button.BackgroundImage")));
+            this.allSettings_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.allSettings_button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.allSettings_button.FlatAppearance.BorderSize = 0;
+            this.allSettings_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.allSettings_button.Location = new System.Drawing.Point(841, 6);
+            this.allSettings_button.Name = "allSettings_button";
+            this.allSettings_button.Size = new System.Drawing.Size(59, 54);
+            this.allSettings_button.TabIndex = 18;
+            this.allSettings_button.UseVisualStyleBackColor = false;
             // 
-            // button14
+            // label13
             // 
-            this.button14.BackColor = System.Drawing.Color.Transparent;
-            this.button14.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button14.BackgroundImage")));
-            this.button14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button14.FlatAppearance.BorderSize = 0;
-            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button14.Location = new System.Drawing.Point(1168, 6);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(66, 59);
-            this.button14.TabIndex = 12;
-            this.button14.UseVisualStyleBackColor = false;
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(56, 63);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(46, 20);
+            this.label13.TabIndex = 17;
+            this.label13.Text = "ADD";
             // 
-            // panel1
+            // label14
             // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.allData);
-            this.panel1.Location = new System.Drawing.Point(6, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1611, 794);
-            this.panel1.TabIndex = 5;
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(198, 63);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(66, 20);
+            this.label14.TabIndex = 16;
+            this.label14.Text = "FILTER";
             // 
-            // allData
+            // allFilter_button
             // 
-            this.allData.AllowUserToAddRows = false;
-            this.allData.AllowUserToDeleteRows = false;
-            this.allData.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.allData.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.allData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.allData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn9,
-            this.created_column,
-            this.dataGridViewTextBoxColumn10});
-            this.allData.Location = new System.Drawing.Point(7, 132);
-            this.allData.MultiSelect = false;
-            this.allData.Name = "allData";
-            this.allData.ReadOnly = true;
-            this.allData.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.allData.RowTemplate.Height = 24;
-            this.allData.Size = new System.Drawing.Size(1326, 638);
-            this.allData.TabIndex = 3;
+            this.allFilter_button.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.allFilter_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("allFilter_button.BackgroundImage")));
+            this.allFilter_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.allFilter_button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.allFilter_button.FlatAppearance.BorderSize = 0;
+            this.allFilter_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.allFilter_button.Location = new System.Drawing.Point(191, 8);
+            this.allFilter_button.Name = "allFilter_button";
+            this.allFilter_button.Size = new System.Drawing.Size(76, 49);
+            this.allFilter_button.TabIndex = 15;
+            this.allFilter_button.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.allFilter_button.UseVisualStyleBackColor = false;
+            this.allFilter_button.Click += new System.EventHandler(this.allFilter_button_Click);
             // 
-            // dataGridViewTextBoxColumn1
+            // label15
             // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Title";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 400;
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(1124, 67);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(79, 20);
+            this.label15.TabIndex = 14;
+            this.label15.Text = "SEARCH";
             // 
-            // dataGridViewTextBoxColumn2
+            // allSearch_button
             // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 150;
+            this.allSearch_button.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.allSearch_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("allSearch_button.BackgroundImage")));
+            this.allSearch_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.allSearch_button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.allSearch_button.FlatAppearance.BorderSize = 0;
+            this.allSearch_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.allSearch_button.Location = new System.Drawing.Point(1122, 3);
+            this.allSearch_button.Name = "allSearch_button";
+            this.allSearch_button.Size = new System.Drawing.Size(81, 60);
+            this.allSearch_button.TabIndex = 13;
+            this.allSearch_button.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.allSearch_button.UseVisualStyleBackColor = false;
+            this.allSearch_button.Click += new System.EventHandler(this.allSearch_button_Click);
             // 
-            // dataGridViewTextBoxColumn3
+            // allAddApp_button
             // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Surname";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 150;
+            this.allAddApp_button.BackColor = System.Drawing.Color.Transparent;
+            this.allAddApp_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("allAddApp_button.BackgroundImage")));
+            this.allAddApp_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.allAddApp_button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.allAddApp_button.FlatAppearance.BorderSize = 0;
+            this.allAddApp_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.allAddApp_button.Location = new System.Drawing.Point(51, 4);
+            this.allAddApp_button.Name = "allAddApp_button";
+            this.allAddApp_button.Size = new System.Drawing.Size(66, 59);
+            this.allAddApp_button.TabIndex = 12;
+            this.allAddApp_button.UseVisualStyleBackColor = false;
+            this.allAddApp_button.Click += new System.EventHandler(this.allAddApp_button_Click);
             // 
-            // dataGridViewTextBoxColumn9
+            // counterAll_label
             // 
-            this.dataGridViewTextBoxColumn9.HeaderText = "Appointment Type";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            this.dataGridViewTextBoxColumn9.Width = 200;
+            this.counterAll_label.AutoSize = true;
+            this.counterAll_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.counterAll_label.ForeColor = System.Drawing.Color.DimGray;
+            this.counterAll_label.Location = new System.Drawing.Point(13, 771);
+            this.counterAll_label.Name = "counterAll_label";
+            this.counterAll_label.Size = new System.Drawing.Size(45, 18);
+            this.counterAll_label.TabIndex = 26;
+            this.counterAll_label.Text = "count";
             // 
-            // created_column
+            // allAppoitnmentsData
             // 
-            this.created_column.HeaderText = "Date Created";
-            this.created_column.Name = "created_column";
-            this.created_column.ReadOnly = true;
-            this.created_column.Width = 200;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.HeaderText = "Comments";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.Width = 300;
+            this.allAppoitnmentsData.AllowUserToAddRows = false;
+            this.allAppoitnmentsData.AllowUserToDeleteRows = false;
+            this.allAppoitnmentsData.BackgroundColor = System.Drawing.SystemColors.InactiveBorder;
+            this.allAppoitnmentsData.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.allAppoitnmentsData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.allAppoitnmentsData.GridColor = System.Drawing.SystemColors.ButtonFace;
+            this.allAppoitnmentsData.Location = new System.Drawing.Point(7, 113);
+            this.allAppoitnmentsData.MultiSelect = false;
+            this.allAppoitnmentsData.Name = "allAppoitnmentsData";
+            this.allAppoitnmentsData.ReadOnly = true;
+            this.allAppoitnmentsData.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.allAppoitnmentsData.RowTemplate.Height = 24;
+            this.allAppoitnmentsData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.allAppoitnmentsData.Size = new System.Drawing.Size(1663, 653);
+            this.allAppoitnmentsData.TabIndex = 4;
+            this.allAppoitnmentsData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.allAppoitnmentsData_CellContentClick);
             // 
             // pbImportHider
             // 
@@ -874,10 +946,13 @@ namespace Appointments_App
             this.scheduledAppointmentsTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.doneData)).EndInit();
             this.unscheduledAppointmentsTab.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.allData)).EndInit();
+            this.allSearch_panel.ResumeLayout(false);
+            this.allSearch_panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.allAppoitnmentsData)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -885,7 +960,7 @@ namespace Appointments_App
         #endregion
         private TabControl tabControl1;
         private TabPage todayAppointmentsTab;
-        private DataGridView todayData;
+        public DataGridView todayData;
         private TabPage scheduledAppointmentsTab;
         private TabPage unscheduledAppointmentsTab;
         private DataGridView doneData;
@@ -895,13 +970,6 @@ namespace Appointments_App
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private Panel dataPanel;
         private Panel panel1;
-        private DataGridView allData;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private DataGridViewTextBoxColumn created_column;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private Button addAppointment_button;
         private Panel tools_panel;
         private Label label3;
@@ -917,35 +985,45 @@ namespace Appointments_App
         private Button umportFromCsv_button;
         private Label reminders_label;
         private Button reminders_button;
-        private Panel panel2;
-        private Label label1;
-        private Button button8;
-        private Label label6;
-        private Button button9;
-        private Label label7;
-        private Button button10;
-        private Label label8;
-        private Button button11;
-        private Label label9;
-        private Label label10;
-        private Button button12;
-        private Label label11;
-        private Button button13;
-        private Button button14;
         private Label refresh_label;
         private Button refresh_button;
         private Button saveToCsv_button;
         private Panel search_panel;
         private Label label12;
         private TextBox search_text;
-        private LinkLabel linkLabel1;
+        private LinkLabel clearSerach;
         public  Label rem_label;
         private Label totalApp_label;
-        private Label label13;
+        private Label counterToday_label;
         private Label date_label;
         private Label noAppointments_labe;
         private ProgressBar pb;
         private Timer pbImportHider;
+        public DataGridView allAppoitnmentsData;
+        public Label counterAll_label;
+        private Panel panel2;
+        public Label allRemindersCount_label;
+        private Button allExport_button;
+        private Label label6;
+        private Panel allSearch_panel;
+        private LinkLabel allSearchClear_label;
+        private Label label7;
+        private TextBox allSearch_text;
+        private Button allRefresh_button;
+        private Label label8;
+        private Button allImport_button;
+        private Label label9;
+        private Button allReminders_button;
+        private Label label10;
+        private Label label11;
+        private Button allSettings_button;
+        private Label label13;
+        private Label label14;
+        private Button allFilter_button;
+        private Label label15;
+        private Button allSearch_button;
+        private Button allAddApp_button;
+        private Label allDate_label;
     }
 }
 

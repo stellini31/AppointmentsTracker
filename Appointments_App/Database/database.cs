@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Appointments_App.Database
 {
-    class database
+    public class database
     {
         string connString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\bin\Debug\Appointments.accdb";
 
@@ -55,6 +55,75 @@ namespace Appointments_App.Database
                 }
                 connection.Close();
                 reader.Close();
+            }
+            return appointments;
+        }
+
+        public appointment getAppointmentByTitle(string title)
+        {
+            appointment a = new appointment();
+            string query = "SELECT TOP 1 * FROM Appointments WHERE appointment_description = '"+ title + "';";
+
+            using (OleDbConnection connection = new OleDbConnection(this.connString))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand command = new OleDbCommand(query, connection);
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    int appId = Int32.Parse(reader[0].ToString());
+                    string desc = reader[1].ToString();
+                    DateTime appointmentDate = Convert.ToDateTime(reader[2].ToString());
+                    int typeId = Int32.Parse(reader[4].ToString());
+                    string persId = reader[3].ToString();
+                    string persName = reader[5].ToString();
+                    string persSurname = reader[6].ToString();
+                    string tel = reader[7].ToString();
+                    DateTime created = Convert.ToDateTime(reader[8]);
+                    string intermediary = reader[9].ToString();
+                    string additionalPersId = reader[10].ToString();
+                    string additionalPersName = reader[11].ToString();
+                    string additonalPersSurname = reader[12].ToString();
+                    string additionalPersTel = reader[13].ToString();
+                    int done = Int32.Parse(reader[14].ToString());
+                    List<comment> comments = this.getAppointmentCommentsById(appId);
+                    List<reminder> reminders = this.getRemindersByAppointmentId(appId);
+                    int followup = Int32.Parse(reader[15].ToString());
+                    int followUpParentId = Int32.Parse(reader[16].ToString());
+
+                    a = new appointment(appId, desc, appointmentDate, typeId, persId, persName, persSurname, tel, created, intermediary, additionalPersId, additionalPersName, additonalPersSurname, additionalPersTel, done, comments, reminders, followup, followUpParentId);
+                    return a;
+                }
+                connection.Close();
+                reader.Close();
+            }
+            return a;
+        }
+
+        public DataTable getAllAppointmentsAsDataTable(string additionalQuery = null)
+        {
+            string selectCount = "SELECT TOP 200";
+            string query = " appointment_description AS Title, person_name AS Name, person_surname AS Surname, Format(appointment_date, \"Short Date\") as Schedule_Date , appointment_type as Type, Comment " + @"
+                        FROM(appointments
+                        INNER JOIN appointmentTypes ON appointmentTypes.ID = appointments.appointment_type_id)
+                        INNER JOIN
+                        (SELECT comment, appointments.ID from appointments
+                        LEFT OUTER JOIN (SELECT TOP 1 * from comments ORDER BY date_added DESC) AS t ON t.appointment_id = appointments.id) AS ta ON ta.ID = appointments.id ";
+
+            if (additionalQuery != null)
+            {
+                query += additionalQuery;
+                selectCount = "SELECT ";
+            }
+            query = selectCount + query;
+            DataTable appointments = new DataTable();
+            using (OleDbConnection connection = new OleDbConnection(this.connString))
+            {
+                connection.Open();
+                OleDbCommand cmd = new OleDbCommand(query, connection);
+                appointments.Load(cmd.ExecuteReader());
+                connection.Close();
             }
             return appointments;
         }
@@ -164,42 +233,25 @@ namespace Appointments_App.Database
 
         public DataTable getTodayAppointmentsDataTable()
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Description", typeof(string));
-            dt.Columns.Add("Name", typeof(string));
-            dt.Columns.Add("Surname", typeof(string));
-            dt.Columns.Add("Time", typeof(string));
-            dt.Columns.Add("Appointment Type", typeof(string));
-            dt.Columns.Add("Last Comment", typeof(string));
+            string query = "SELECT appointment_description AS Title, person_name AS Name, person_surname AS Surname, Format(appointment_date, \"Short Time\") as Schedule , appointment_type as Type, Comment " + @"
+                            FROM(appointments
+                            INNER JOIN appointmentTypes ON appointmentTypes.ID = appointments.appointment_type_id)
+                            INNER JOIN
+                            (SELECT comment, appointments.ID from appointments
+                            LEFT OUTER JOIN (SELECT TOP 1 * from comments ORDER BY date_added DESC) AS t ON t.appointment_id = appointments.id) AS ta ON ta.ID = appointments.id
+                            WHERE appointment_date > DATE() AND appointment_date < DATE() +1 AND done = 0
+                            ORDER BY appointment_date;";
+        
+
+            DataTable appointments = new DataTable();
             using (OleDbConnection connection = new OleDbConnection(this.connString))
             {
                 connection.Open();
-                OleDbDataReader reader = null;
-                OleDbCommand command = new OleDbCommand("SELECT * FROM Appointments WHERE appointment_date > DATE() AND appointment_date < DATE() +1 ORDER BY appointment_date;", connection);
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    int appId = Int32.Parse(reader[0].ToString());
-                    string desc = reader[1].ToString();
-                    String appointmentTime = Convert.ToDateTime(reader[2].ToString()).ToShortTimeString();
-                    int typeId = Int32.Parse(reader[4].ToString());
-                    string appointmentType = this.getAppointmentTypeDesc(typeId);
-                    string persName = reader[5].ToString();
-                    string persSurname = reader[6].ToString();
-                    List<comment> comments = this.getAppointmentCommentsById(appId);
-
-                    string lastComment = "";
-                    if(comments.Count > 0)
-                    {
-                        lastComment = comments[comments.Count() - 1].CommentText;
-                    }
-                   
-                    dt.Rows.Add( desc, persName, persSurname, appointmentTime, appointmentType, lastComment);
-                }
+                OleDbCommand cmd = new OleDbCommand(query, connection);
+                appointments.Load(cmd.ExecuteReader());
                 connection.Close();
-                reader.Close();
             }
-            return dt;
+            return appointments;
         }
 
         public List<string> getAllAppointmentTypes()
@@ -591,6 +643,73 @@ namespace Appointments_App.Database
                 command.ExecuteNonQuery();
                 connection.Close();
             }
+        }
+
+        public DataTable searchTodayAppointmets(string text)
+        {
+            string query = "SELECT appointment_description AS Title, person_name AS Name, person_surname AS Surname, Format(appointment_date, \"Short Time\") as Schedule , appointment_type as Type, Comment " + @"
+                            FROM(appointments
+                            INNER JOIN appointmentTypes ON appointmentTypes.ID = appointments.appointment_type_id)
+                            INNER JOIN
+                            (SELECT comment, appointments.ID from appointments
+                            LEFT OUTER JOIN (SELECT TOP 1 * from comments ORDER BY date_added DESC) AS t ON t.appointment_id = appointments.id) AS ta ON ta.ID = appointments.id
+                            WHERE appointment_date > DATE() AND appointment_date < DATE() +1 AND done = 0 AND
+                            (appointment_description like OR person_id like ? or person_name like ? or person_surname like ? or person_tel like ? or additional_person_id like ? or additional_pers_name like ? or additional_pers_surname like ? or additional_pers_tel like ? or intermediary_name like ? )
+                            ORDER BY appointment_date;";
+
+            DataTable searchedTodayAppointments = new DataTable();
+            using (OleDbConnection connection = new OleDbConnection(this.connString))
+            {
+                connection.Open();
+                OleDbCommand cmd = new OleDbCommand(query, connection);
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                searchedTodayAppointments.Load(cmd.ExecuteReader());
+                connection.Close();
+            }
+            return searchedTodayAppointments;
+        }
+
+        public DataTable searchAllAppointmets(string text)
+        {
+            string query = "SELECT appointment_description AS Title, person_name AS Name, person_surname AS Surname, Format(appointment_date, \"Short Date\") as Schedule , appointment_type as Type, Comment " + @"
+                            FROM(appointments
+                            INNER JOIN appointmentTypes ON appointmentTypes.ID = appointments.appointment_type_id)
+                            INNER JOIN
+                            (SELECT comment, appointments.ID from appointments
+                            LEFT OUTER JOIN (SELECT TOP 1 * from comments ORDER BY date_added DESC) AS t ON t.appointment_id = appointments.id) AS ta ON ta.ID = appointments.id
+                            WHERE appointment_description like ? OR person_id like ? or person_name like ? or person_surname like ? or person_tel like ? or additional_person_id like ? or additional_pers_name like ? or additional_pers_surname like ? or additional_pers_tel like ? or intermediary_name like ?
+                            ORDER BY appointment_date;";
+
+            DataTable searchedTodayAppointments = new DataTable();
+            using (OleDbConnection connection = new OleDbConnection(this.connString))
+            {
+                connection.Open();
+                OleDbCommand cmd = new OleDbCommand(query, connection);
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
+                searchedTodayAppointments.Load(cmd.ExecuteReader());
+                connection.Close();
+            }
+            return searchedTodayAppointments;
         }
     }
 }

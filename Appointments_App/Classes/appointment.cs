@@ -28,6 +28,8 @@ namespace Appointments_App.Classes
         private int followup;
         int followUpParentId;
 
+        public appointment() { }
+
         public appointment(string appointmentDesc, DateTime appointmentDate, int appointmentTypeId, string personId, string personName, string personSurname, string tel, DateTime dateCreated, string intermediary, string additionalPersId, string additionalPersName, string additionalPersSurname, string additionalPersTel, int done, int followup, int followUpParentId)
         {
             this.AppointmentDesc = appointmentDesc;

@@ -1,5 +1,6 @@
 ﻿using Appointments_App.Classes;
 using Appointments_App.Database;
+using Appointments_App.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,13 +16,19 @@ namespace Appointments_App.GUI
     public partial class Filter : Form
     {
         database dbConn;
+        Appointments appForm;
+        allAppointments aa;
         DateTime scheduledMin;
         DateTime createdMin;
+        public DataTable filteredAppointments = new DataTable();
 
-        public Filter()
+
+        public Filter(Appointments appForm)
         {
             InitializeComponent();
             dbConn = new database();
+            this.appForm = appForm;
+            this.aa = new allAppointments(appForm);
 
             scheduledMin = Convert.ToDateTime(schedule_datetime1.Value);
         }
@@ -137,8 +144,7 @@ namespace Appointments_App.GUI
 
         private void search_button_Click(object sender, EventArgs e)
         {
-            List <appointment> appointments = new List<appointment>();
-            string query = "SELECT * FROM Appointments WHERE ";
+            string query = " WHERE ";
 
             //Appointment Status Filter
             string statusQuery = "";
@@ -157,10 +163,10 @@ namespace Appointments_App.GUI
             string scheduleOperator = scheduleDate_combo.Text;
             switch (scheduleOperator)
             {
-                case "From": scheduleDateQuery = "appointment_date > #" + schedule_datetime1.Value.ToShortDateString() + "# AND "; break;
-                case "Before": scheduleDateQuery = "appointment_date < #" + schedule_datetime1.Value.ToShortDateString() + "# AND "; break;
-                case "On": scheduleDateQuery = "appointment_date > #" + schedule_datetime1.Value.ToShortDateString() + "# AND appointment_date < #" + schedule_datetime1.Value.AddDays(1).ToShortDateString() + "# AND "; break;
-                case "Between": scheduleDateQuery = "appointment_date < #" + schedule_datetime2.Value.ToShortDateString() + "# AND appointment_date > #" + schedule_datetime1.Value.ToShortDateString() + "# AND "; break;
+                case "From": scheduleDateQuery = "appointment_date > #" + schedule_datetime1.Value.ToString("MM/dd/yyyy") + "# AND "; break;
+                case "Before": scheduleDateQuery = "appointment_date < #" + schedule_datetime1.Value.ToString("MM/dd/yyyy") + "# AND "; break;
+                case "On": scheduleDateQuery = "appointment_date > #" + schedule_datetime1.Value.ToString("MM/dd/yyyy") + "# AND appointment_date < #" + schedule_datetime1.Value.AddDays(1).ToString("MM/dd/yyyy") + "# AND "; break;
+                case "Between": scheduleDateQuery = "appointment_date < #" + schedule_datetime2.Value.ToString("MM/dd/yyyy") + "# AND appointment_date > #" + schedule_datetime1.Value.ToString("MM/dd/yyyy") + "# AND "; break;
             }
 
             //Appoitnment Type filter
@@ -177,31 +183,36 @@ namespace Appointments_App.GUI
             string createdOperator = createdDate_combo.Text;
             switch (createdOperator)
             {
-                case "From": createdDateQuery = "appointment_created > #" + created_datetime1.Value.ToShortDateString() + "# AND "; break;
-                case "Before": createdDateQuery = "appointment_created < #" + created_datetime1.Value.ToShortDateString() + "# AND "; break;
-                case "On": createdDateQuery = "appointment_created > #" + created_datetime1.Value.ToShortDateString() + "# AND appointment_created < #" + created_datetime1.Value.AddDays(1).ToShortDateString() + "# AND "; break;
-                case "Between": createdDateQuery = "appointment_created < #" + created_datetime2.Value.ToShortDateString() + "# AND appointment_date > #" + created_datetime1.Value.ToShortDateString() + "# AND "; break;
+                case "From": createdDateQuery = "appointment_created > #" + created_datetime1.Value.ToString("MM/dd/yyyy") + "# AND "; break;
+                case "Before": createdDateQuery = "appointment_created < #" + created_datetime1.Value.ToString("MM/dd/yyyy") + "# AND "; break;
+                case "On": createdDateQuery = "appointment_created > #" + created_datetime1.Value.ToString("MM/dd/yyyy") + "# AND appointment_created < #" + created_datetime1.Value.AddDays(1).ToString("MM/dd/yyyy") + "# AND "; break;
+                case "Between": createdDateQuery = "appointment_created < #" + created_datetime2.Value.ToString("MM/dd/yyyy") + "# AND appointment_date > #" + created_datetime1.Value.ToString("MM/dd/yyyy") + "# AND "; break;
             }
 
             //Have Intermediary Filter
             string haveIntermediaryQuery = "";
             if (yesInt_radio.Checked)
             {
-                haveIntermediaryQuery = "intermediary_name <> '' AND ";
+                haveIntermediaryQuery = "(intermediary_name <> '' OR intermediary_name <> NULL) AND ";
             }
             else if(noInt_radio.Checked)
             {
-                haveIntermediaryQuery = "intermediary_name = '' AND ";
+                haveIntermediaryQuery = "(intermediary_name = '' OR intermediary_name = NULL) AND ";
             }
 
             string filterQueries = statusQuery + scheduleDateQuery + typeQuery + createdDateQuery + haveIntermediaryQuery;
-            if(filterQueries != "")
+            string allQuery = null;
+            if (filterQueries != "")
             {
-                string allQuery = query + filterQueries;
+                allQuery = query + filterQueries;
                 allQuery = allQuery.Substring(0, allQuery.Count() - 5) + ";";
 
-                appointments = dbConn.getAllAppointments(allQuery);
+                
             }
+            filteredAppointments = dbConn.getAllAppointmentsAsDataTable(allQuery);
+            aa.populateAllAppointments(filteredAppointments);
+            appForm.updateCounterText(appForm.counterAll_label, filteredAppointments.Rows.Count);
+            appForm.filteredAppointments = this.filteredAppointments;
         }
     }
 }
