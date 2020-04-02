@@ -71,73 +71,84 @@ namespace Appointments_App.GUI
 
             if(description_text.Text != "" && id1_text.Text != "" &&  name1_text.Text != "" && surname1_text.Text != "" && tel1_text.Text != "")
             {
-                //Saving Appointment
-                appointment app = new appointment(appointmentDesc, datetime, appointmentTypeId, person1Id, person1Name, person1Surname, person1Tel, appointmentCreated, intermediary, person2Id, person2Name, person2Surname, person2Tel, done, this.followup, this.followUpParentId);
-                dbConn.SaveAppointment(app);
-
-                int appointmentId = dbConn.getLastAppointmentId();
-
-                //Saving Comment
-                if(parentApp == null)
+                if (!dbConn.appointmentTitleExists(appointmentDesc))
                 {
-                    string commentText = comment_text.Text.Replace("'", "");
-                    if (commentText != "")
+                    //Saving Appointment
+                    appointment app = new appointment(appointmentDesc, datetime, appointmentTypeId, person1Id, person1Name, person1Surname, person1Tel, appointmentCreated, intermediary, person2Id, person2Name, person2Surname, person2Tel, done, this.followup, this.followUpParentId);
+                    dbConn.SaveAppointment(app);
+
+                    int appointmentId = dbConn.getLastAppointmentId();
+
+                    //Saving Comment
+                    if (parentApp == null)
                     {
-                        dbConn.saveComment(commentText, 1);
+                        string commentText = comment_text.Text.Replace("'", "");
+                        if (commentText != "")
+                        {
+                            dbConn.saveComment(commentText, 1);
+                        }
                     }
+                    else
+                    {
+                        //For Parent
+                        string commentDescription = "Follow Up Appoitnment Created";
+                        dbConn.saveComment(commentDescription, 2, parentApp.AppointmentId);
+                        ea.addComment(commentDescription, DateTime.Now);
+
+                        //For self appointment
+                        string commentText = comment_text.Text.Replace("'", "");
+                        if (commentText != "")
+                        {
+                            dbConn.saveComment(commentText, 1);
+                        }
+
+                        //Load All Follow Ups
+                        ea.loadFollowUps();
+                    }
+
+                    //Saving Reminder
+                    string reminderMessage = remMessage_text.Text.Replace("'", "");
+                    if (addReminder_check.Checked)
+                    {
+                        reminder rem = new reminder(Convert.ToDateTime(reminder_datetime.Text), reminderMessage, appointmentId, 0);
+                        dbConn.saveReminder(rem);
+                    }
+
+                    //Resetting form
+                    saved_label.Visible = true;
+                    hide_success_label.Interval = 3000;
+                    hide_success_label.Tick += hide_success_label_Tick;
+                    hide_success_label.Start();
+
+                    description_text.Text = "";
+                    id1_text.Text = "";
+                    name1_text.Text = "";
+                    surname1_text.Text = "";
+                    tel1_text.Text = "";
+                    id2_text.Text = "";
+                    name2_text.Text = "";
+                    surname2_text.Text = "";
+                    tel2_text.Text = "";
+                    intermediary_text.Text = "";
+
+                    id2_text.Enabled = false;
+                    name2_text.Enabled = false;
+                    surname2_text.Enabled = false;
+                    tel2_text.Enabled = false;
+                    addPerson_check.Checked = false;
+
+                    comment_text.Text = "";
+                    remMessage_text.Text = "";
+                    addReminder_check.Checked = false;
                 }
                 else
                 {
-                    //For Parent
-                    string commentDescription = "Follow Up Appoitnment Created";
-                    dbConn.saveComment(commentDescription, 2, parentApp.AppointmentId);
-                    ea.addComment(commentDescription, DateTime.Now);
-
-                    //For self appointment
-                    string commentText = comment_text.Text.Replace("'", "");
-                    if (commentText != "")
-                    {
-                        dbConn.saveComment(commentText, 1);
-                    }
-
-                    //Load All Follow Ups
-                    ea.loadFollowUps();
+                    error_label.Text = "Appointment Title already Exist!";
+                    error_label.Visible = true;
+                    hide_error_label.Interval = 3000;
+                    hide_error_label.Tick += hide_error_label_Tick;
+                    hide_error_label.Start();
                 }
-
-                //Saving Reminder
-                string reminderMessage = remMessage_text.Text.Replace("'", "");
-                if (addReminder_check.Checked)
-                {
-                    reminder rem = new reminder(Convert.ToDateTime(reminder_datetime.Text), reminderMessage, appointmentId, 0);
-                    dbConn.saveReminder(rem);
-                }
-
-                //Resetting form
-                saved_label.Visible = true;
-                hide_success_label.Interval = 3000;
-                hide_success_label.Tick += hide_success_label_Tick;
-                hide_success_label.Start();
-
-                description_text.Text = "";
-                id1_text.Text = "";
-                name1_text.Text = "";
-                surname1_text.Text = "";
-                tel1_text.Text = "";
-                id2_text.Text = "";
-                name2_text.Text = "";
-                surname2_text.Text = "";
-                tel2_text.Text = "";
-                intermediary_text.Text = "";
-
-                id2_text.Enabled = false;
-                name2_text.Enabled = false;
-                surname2_text.Enabled = false;
-                tel2_text.Enabled = false;
-                addPerson_check.Checked = false;
-                
-                comment_text.Text = "";
-                remMessage_text.Text = "";
-                addReminder_check.Checked = false;
             }
             else   // necessary fields are empty
             {
@@ -147,6 +158,7 @@ namespace Appointments_App.GUI
                 if (surname1_text.Text == "") required_surname.Visible = true;
                 if (tel1_text.Text == "") required_tel.Visible = true;
 
+                error_label.Text = "Please Fill all Fields";
                 error_label.Visible = true;
                 hide_error_label.Interval = 3000;
                 hide_error_label.Tick += hide_error_label_Tick;
@@ -156,7 +168,7 @@ namespace Appointments_App.GUI
 
         private void AddAppointment_Load(object sender, EventArgs e)
         {
-            //Lloading appointment types
+            //Loading appointment types
             List<string> Types = dbConn.getAllAppointmentTypes();
             foreach(string type in Types)
             {

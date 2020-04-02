@@ -22,6 +22,7 @@ namespace Appointments_App
         database dbConn;
         todayAppointments ta;
         allAppointments aa;
+        Filter fil;
 
         DataTable dtTodayAppoitnemts;
         DataTable dtAllAppointments;
@@ -33,7 +34,7 @@ namespace Appointments_App
         int GlobalAppointmentsCount;
         int TodayAppointmentsCount;
         int AllAppointmentsCount;
-        int progressVisibleTime = 1500; //ms
+        bool higlighted = false;
 
         public Appointments()
         {
@@ -51,13 +52,14 @@ namespace Appointments_App
 
             ta = new todayAppointments(this);
             aa = new allAppointments(this);
+            fil = new Filter(this);
         }
 
         //////////////////////////// ON LOAD ////////////////////////////
         private void Form1_Load(object sender, EventArgs e)
         {
-            aa.populateAllAppointments(this.dtAllAppointments);
-            ta.populateTodayAppointments(this.dtTodayAppoitnemts);
+            this.populateAppointments(this.allAppoitnmentsData, this.dtAllAppointments);
+            this.populateAppointments(this.todayData, this.dtTodayAppoitnemts);
 
             if (TodayAppointmentsCount == 0)
             {
@@ -67,6 +69,8 @@ namespace Appointments_App
             this.updateCounterText(counterToday_label, this.TodayAppointmentsCount);
             this.updateCounterText(counterAll_label, this.AllAppointmentsCount);
             this.updateRemindersCount();
+
+            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
         }
         //////////////////////////// END ON LOAD ////////////////////////////
 
@@ -118,8 +122,21 @@ namespace Appointments_App
                 ea.ShowDialog();
             }
         }
-        //////////////////////////// end EDIT APPOINTMENT ////////////////////////////
+        //////////////////////////// END EDIT APPOINTMENT ////////////////////////////
 
+        //////////////////////////// POPULATE DATA TABLES ////////////////////////////
+        public void populateAppointments(DataGridView dataView, DataTable allAppointments)
+        {
+            dataView.DataSource = allAppointments;
+            dataView.Columns[0].Width = 300;
+            dataView.Columns[1].Width = 150;
+            dataView.Columns[2].Width = 150;
+            dataView.Columns[3].Width = 150;
+            dataView.Columns[4].Width = 150;
+            dataView.Columns[5].Width = 350;
+            dataView.Columns[6].Width = 0;
+        }
+        //////////////////////////// END POPULATE DATA TABLES ////////////////////////////
 
         //////////////////////////// REFRESH ////////////////////////////
         private void refresh_button_Click(object sender, EventArgs e)
@@ -145,8 +162,8 @@ namespace Appointments_App
             TodayAppointmentsCount = dtTodayAppoitnemts.Rows.Count;
             AllAppointmentsCount = dtAllAppointments.Rows.Count;
 
-            ta.populateTodayAppointments(dtTodayAppoitnemts);
-            aa.populateAllAppointments(dtAllAppointments);
+            this.populateAppointments(this.todayData, dtTodayAppoitnemts);
+            this.populateAppointments(this.allAppoitnmentsData, dtAllAppointments);
 
             this.GlobalAppointmentsCount = dbConn.getCountAllAppointments();
             this.updateCounterText(counterToday_label, TodayAppointmentsCount);
@@ -201,7 +218,7 @@ namespace Appointments_App
             {
                 search_panel.Visible = false;
                 search_text.Text = "";
-                ta.populateTodayAppointments(this.dtTodayAppoitnemts);
+                this.populateAppointments(this.todayData, this.dtTodayAppoitnemts);
                 this.searchedTodayAppointments = new DataTable();
             }
             else
@@ -214,19 +231,14 @@ namespace Appointments_App
         {
             string text = this.search_text.Text;
             this.searchedTodayAppointments = dbConn.searchTodayAppointmets(text);
-            ta.populateTodayAppointments(searchedTodayAppointments);
+            this.populateAppointments(this.todayData, searchedTodayAppointments);
             updateCounterText(counterToday_label, searchedTodayAppointments.Rows.Count);
-
-
-            /*DataTable searched = dtTodayAppoitnemts.AsEnumerable()
-                .Where(row => row.Field<String>("Description") == text)
-                .CopyToDataTable()*/
         }
 
         private void clearSerach_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
             search_text.Text = "";
-            ta.populateTodayAppointments(this.dtTodayAppoitnemts);
+            this.populateAppointments(this.todayData, this.dtTodayAppoitnemts);
             this.updateCounterText(counterToday_label, TodayAppointmentsCount);
             this.searchedTodayAppointments = new DataTable();
         }
@@ -237,7 +249,7 @@ namespace Appointments_App
             {
                 allSearch_panel.Visible = false;
                 allSearch_text.Text = "";
-                aa.populateAllAppointments(this.dtAllAppointments);
+                this.populateAppointments(this.allAppoitnmentsData, this.dtAllAppointments);
                 this.searchedAllAppointments = new DataTable();
             }
             else
@@ -250,14 +262,15 @@ namespace Appointments_App
         {
             string text = this.allSearch_text.Text;
             this.searchedAllAppointments = dbConn.searchAllAppointmets(text);
-            aa.populateAllAppointments(searchedAllAppointments);
+            this.populateAppointments(this.allAppoitnmentsData, searchedAllAppointments);
             updateCounterText(counterAll_label, searchedAllAppointments.Rows.Count);
+            this.clearFilter();
         }
 
         private void allSearchClear_label_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             allSearch_text.Text = "";
-            aa.populateAllAppointments(this.dtAllAppointments);
+            this.populateAppointments(this.allAppoitnmentsData, this.dtAllAppointments);
             this.updateCounterText(counterAll_label, AllAppointmentsCount);
             this.searchedAllAppointments = new DataTable();
         }
@@ -266,16 +279,58 @@ namespace Appointments_App
         //////////////////////////// IMPORT/EXPORT ////////////////////////////
         private void saveToCsv_button_Click(object sender, EventArgs e)
         {
-            Dictionary<int, string> appTypes = dbConn.getAllAppointmentTypesDict();
-            //Export.exportAppointments(this.todayAppointments, appTypes, "Today Appointments", pb);
-
+            Export.exportAppointments(dbConn.getTodayAppointmentsAllData(), "Today Appointments");
         }
 
         private void umportFromCsv_button_Click(object sender, EventArgs e)
         {
             Import.importAppointments(dbConn);
         }
+
+        private void allExport_button_Click(object sender, EventArgs e)
+        {
+            DataTable appointmentss = new DataTable();
+            string fileName = String.Empty;
+            if (filteredAppointments.Rows.Count > 0)
+            {
+                fileName = "Filtered Appointments";
+                string queryUsed = fil.allQuery;
+                appointmentss = dbConn.getAllAppointmentsAllData(queryUsed);
+            }
+            else
+            {
+                fileName = "All Appointments";
+                appointmentss = dbConn.getAllAppointmentsAllData();
+            }
+            Export.exportAppointments(appointmentss, fileName);
+        }
+
+        private void allImport_button_Click(object sender, EventArgs e)
+        {
+            Import.importAppointments(dbConn);
+        }
         //////////////////////////// END IMPORT/EXPORT ////////////////////////////
+
+        //////////////////////////// FILTER ////////////////////////////
+        private void allFilter_button_Click(object sender, EventArgs e)
+        {
+            if (fil.Visible == true) fil.Visible = false;
+            else fil.Visible = true;
+        }
+
+        private void clearFilter_button_Click(object sender, EventArgs e)
+        {
+            this.populateAppointments(this.allAppoitnmentsData, dtAllAppointments);
+            updateCounterText(counterAll_label, dtAllAppointments.Rows.Count);
+            clearFilter();
+        }
+
+        public void clearFilter()
+        {
+            this.clearFilter_button.Visible = false;
+            this.filteredAppointments = new DataTable();
+        }
+        //////////////////////////// END FILTER ////////////////////////////
 
         private void pbImportHider_Tick(object sender, EventArgs e)
         {
@@ -283,88 +338,29 @@ namespace Appointments_App
             pbImportHider.Stop();
         }
 
+
         public void updateCounterText(Label l, int showingCount)
         {
             l.Text = "Showing " + showingCount.ToString() + " out of " + this.GlobalAppointmentsCount + " Appointments";
         }
 
-        /*private void filter_button_Click(object sender, EventArgs e)
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Filter fil = new Filter();
-            fil.ShowDialog();
-        }*/
-
-        private void allFilter_button_Click(object sender, EventArgs e)
-        {
-            Filter fil = new Filter(this);
-            fil.Show();
+            if(tabControl1.SelectedIndex == 1 && !higlighted)
+            {
+                foreach (DataGridViewRow row in allAppoitnmentsData.Rows)
+                {
+                    string title = row.Cells["Title"].Value.ToString();
+                    DateTime Schedule = Convert.ToDateTime(row.Cells["Schedule"].Value.ToString());
+                    if(Schedule.Date < DateTime.Now.Date && Int32.Parse(row.Cells["done"].Value.ToString()) == 0)
+                    {
+                        row.DefaultCellStyle.ForeColor = Color.Red;
+                    }
+                    //dataView.Rows[0].DefaultCellStyle.ForeColor = Color.Red;
+                    
+                }
+                
+            }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*private void searchTodayAppointments(string textToSearch)
-        {
-            this.searchedTodayAppointments = new List<appointment>();
-            foreach (appointment a in todayAppointments)
-            {
-                string comments = dbConn.getCommentsByAppointmentIdAsString(a.AppointmentId);
-                if (a.AppointmentDesc.Contains(textToSearch) || a.PersonId.Contains(textToSearch) || a.PersonName.Contains(textToSearch) || a.PersonSurname.Contains(textToSearch) || a.Tel.Contains(textToSearch) || a.Intermediary.Contains(textToSearch) || a.AdditionalPersonId.Contains(textToSearch) || a.AdditionalPersonName.Contains(textToSearch) || a.AdditionalPersonSurname.Contains(textToSearch) || a.AdditionalPersonTel.Contains(textToSearch) || comments.Contains(textToSearch))
-                {
-                    this.searchedTodayAppointments.Add(a);
-                }
-            }
-
-            this.populateTodayAppointments(searchedTodayAppointments);
-            label13.Text = "Showing " + searchedTodayAppointments.Count().ToString() + " out of " + dbConn.getCountAllAppointments().ToString() + " Appointments";
-        }*/
-
-        /*public void populateTodayAppointments(List<appointment> appointments)
-        {
-            todayData.DataSource = null;
-            todayData.Rows.Clear();
-            foreach (appointment a in appointments)
-            {
-                string appointmentType = dbConn.getAppointmentTypeDesc(a.AppointmentTypeId);
-                string lastComment = String.Empty;
-                if (a.Comments.Count != 0)
-                {
-                    lastComment = a.Comments[a.Comments.Count() - 1].CommentText;
-                }
-                this.todayData.Rows.Add(a.AppointmentDesc, a.PersonName, a.PersonSurname, a.AppointmentDate.ToString("HH:mm"), appointmentType, lastComment);
-            }
-        }*/
-
-        /*public DataTable getTodayAppointments()
-        {
-            DataTable dtTodayAppoitnemts = dtAllAppointments.AsEnumerable()
-                .Where(row => row.Field<DateTime>("Schedule_Date").ToShortDateString() == DateTime.Now.ToShortDateString())
-                .CopyToDataTable();
-
-            var query = from appointment in dtAllAppointments.AsEnumerable()
-                        where appointment.Field<DateTime>("Schedule_Date").ToShortDateString() == DateTime.Now.ToShortDateString()
-                        //where Convert.ToDateTime(appointment["Schedule_Date"]).ToShortDateString() == DateTime.Now.ToShortDateString()
-                        select new
-                         {
-                            
-                             Title = appointment.Field<string>("Title"),
-                             Name = appointment.Field<string>("Name")
-                         };
-
-            //DataTable td = query.CopyToDataTable();
-
-            return dtTodayAppoitnemts;
-        }*/
     }
 }

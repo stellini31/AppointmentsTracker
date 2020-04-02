@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditAppointment));
             this.titlePanel = new System.Windows.Forms.Panel();
+            this.saved_label = new System.Windows.Forms.Label();
+            this.save_button = new System.Windows.Forms.Button();
             this.statusShow_label = new System.Windows.Forms.Label();
             this.close_button = new System.Windows.Forms.Button();
             this.parent_link = new System.Windows.Forms.LinkLabel();
@@ -40,9 +42,12 @@
             this.created_text = new System.Windows.Forms.Label();
             this.dateCreatedLabel = new System.Windows.Forms.Label();
             this.title_label = new System.Windows.Forms.Label();
-            this.submitComment_button = new System.Windows.Forms.Button();
-            this.commentsubmit_text = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.required_tel = new System.Windows.Forms.Label();
+            this.required_surname = new System.Windows.Forms.Label();
+            this.required_name = new System.Windows.Forms.Label();
+            this.required_id = new System.Windows.Forms.Label();
+            this.error_label = new System.Windows.Forms.Label();
             this.tel2_text = new System.Windows.Forms.TextBox();
             this.surname2_text = new System.Windows.Forms.TextBox();
             this.name2_text = new System.Windows.Forms.TextBox();
@@ -68,25 +73,32 @@
             this.timePicker = new System.Windows.Forms.DateTimePicker();
             this.appInfo_label = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.comment_text = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.followup_panel = new System.Windows.Forms.Panel();
             this.followsupItems_panel = new System.Windows.Forms.Panel();
             this.followup_label = new System.Windows.Forms.Label();
-            this.save_button = new System.Windows.Forms.Button();
-            this.saved_label = new System.Windows.Forms.Label();
             this.hide_success_label = new System.Windows.Forms.Timer(this.components);
-            this.error_label = new System.Windows.Forms.Label();
-            this.required_id = new System.Windows.Forms.Label();
-            this.required_name = new System.Windows.Forms.Label();
-            this.required_surname = new System.Windows.Forms.Label();
-            this.required_tel = new System.Windows.Forms.Label();
             this.hide_error_label = new System.Windows.Forms.Timer(this.components);
+            this.submitComment_button = new System.Windows.Forms.Button();
+            this.commentsubmit_text = new System.Windows.Forms.TextBox();
+            this.comment_text = new System.Windows.Forms.TextBox();
+            this.allReminders_panel = new System.Windows.Forms.Panel();
+            this.reminders_panel = new System.Windows.Forms.Panel();
+            this.addRrem_button = new System.Windows.Forms.Button();
+            this.setReminder_panel = new System.Windows.Forms.Panel();
+            this.remMessage_text = new System.Windows.Forms.TextBox();
+            this.remMessage_label = new System.Windows.Forms.Label();
+            this.reminder_datetime = new System.Windows.Forms.DateTimePicker();
+            this.reminderDate_label = new System.Windows.Forms.Label();
+            this.reminders_label = new System.Windows.Forms.Label();
+            this.upcomingRem_labe = new System.Windows.Forms.Label();
             this.titlePanel.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.followup_panel.SuspendLayout();
+            this.allReminders_panel.SuspendLayout();
+            this.setReminder_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // titlePanel
@@ -108,6 +120,29 @@
             this.titlePanel.Name = "titlePanel";
             this.titlePanel.Size = new System.Drawing.Size(843, 108);
             this.titlePanel.TabIndex = 0;
+            // 
+            // saved_label
+            // 
+            this.saved_label.AutoSize = true;
+            this.saved_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saved_label.ForeColor = System.Drawing.Color.LimeGreen;
+            this.saved_label.Location = new System.Drawing.Point(758, 86);
+            this.saved_label.Name = "saved_label";
+            this.saved_label.Size = new System.Drawing.Size(60, 18);
+            this.saved_label.TabIndex = 20;
+            this.saved_label.Text = "SAVED!";
+            this.saved_label.Visible = false;
+            // 
+            // save_button
+            // 
+            this.save_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("save_button.BackgroundImage")));
+            this.save_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.save_button.Location = new System.Drawing.Point(764, 28);
+            this.save_button.Name = "save_button";
+            this.save_button.Size = new System.Drawing.Size(51, 59);
+            this.save_button.TabIndex = 12;
+            this.save_button.UseVisualStyleBackColor = true;
+            this.save_button.Click += new System.EventHandler(this.save_button_Click);
             // 
             // statusShow_label
             // 
@@ -214,28 +249,6 @@
             this.title_label.TabIndex = 1;
             this.title_label.Text = "Title";
             // 
-            // submitComment_button
-            // 
-            this.submitComment_button.BackColor = System.Drawing.Color.White;
-            this.submitComment_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("submitComment_button.BackgroundImage")));
-            this.submitComment_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.submitComment_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.submitComment_button.Location = new System.Drawing.Point(774, 259);
-            this.submitComment_button.Name = "submitComment_button";
-            this.submitComment_button.Size = new System.Drawing.Size(41, 31);
-            this.submitComment_button.TabIndex = 9;
-            this.submitComment_button.UseVisualStyleBackColor = false;
-            this.submitComment_button.Click += new System.EventHandler(this.submitComment_button_Click);
-            // 
-            // commentsubmit_text
-            // 
-            this.commentsubmit_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.commentsubmit_text.Location = new System.Drawing.Point(13, 259);
-            this.commentsubmit_text.Multiline = true;
-            this.commentsubmit_text.Name = "commentsubmit_text";
-            this.commentsubmit_text.Size = new System.Drawing.Size(755, 31);
-            this.commentsubmit_text.TabIndex = 8;
-            // 
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -262,6 +275,66 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(843, 262);
             this.panel2.TabIndex = 10;
+            // 
+            // required_tel
+            // 
+            this.required_tel.AutoSize = true;
+            this.required_tel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.required_tel.ForeColor = System.Drawing.Color.Red;
+            this.required_tel.Location = new System.Drawing.Point(427, 168);
+            this.required_tel.Name = "required_tel";
+            this.required_tel.Size = new System.Drawing.Size(20, 25);
+            this.required_tel.TabIndex = 25;
+            this.required_tel.Text = "*";
+            this.required_tel.Visible = false;
+            // 
+            // required_surname
+            // 
+            this.required_surname.AutoSize = true;
+            this.required_surname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.required_surname.ForeColor = System.Drawing.Color.Red;
+            this.required_surname.Location = new System.Drawing.Point(427, 130);
+            this.required_surname.Name = "required_surname";
+            this.required_surname.Size = new System.Drawing.Size(20, 25);
+            this.required_surname.TabIndex = 24;
+            this.required_surname.Text = "*";
+            this.required_surname.Visible = false;
+            // 
+            // required_name
+            // 
+            this.required_name.AutoSize = true;
+            this.required_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.required_name.ForeColor = System.Drawing.Color.Red;
+            this.required_name.Location = new System.Drawing.Point(427, 94);
+            this.required_name.Name = "required_name";
+            this.required_name.Size = new System.Drawing.Size(20, 25);
+            this.required_name.TabIndex = 23;
+            this.required_name.Text = "*";
+            this.required_name.Visible = false;
+            // 
+            // required_id
+            // 
+            this.required_id.AutoSize = true;
+            this.required_id.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.required_id.ForeColor = System.Drawing.Color.Red;
+            this.required_id.Location = new System.Drawing.Point(427, 57);
+            this.required_id.Name = "required_id";
+            this.required_id.Size = new System.Drawing.Size(20, 25);
+            this.required_id.TabIndex = 22;
+            this.required_id.Text = "*";
+            this.required_id.Visible = false;
+            // 
+            // error_label
+            // 
+            this.error_label.AutoSize = true;
+            this.error_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.error_label.ForeColor = System.Drawing.Color.LightCoral;
+            this.error_label.Location = new System.Drawing.Point(500, 19);
+            this.error_label.Name = "error_label";
+            this.error_label.Size = new System.Drawing.Size(304, 18);
+            this.error_label.TabIndex = 21;
+            this.error_label.Text = "CANNOT LEAVE REQUIRD FIELDS EMPTY";
+            this.error_label.Visible = false;
             // 
             // tel2_text
             // 
@@ -505,21 +578,10 @@
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.commentsubmit_text);
             this.panel3.Controls.Add(this.submitComment_button);
-            this.panel3.Location = new System.Drawing.Point(12, 680);
+            this.panel3.Location = new System.Drawing.Point(12, 669);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(843, 306);
             this.panel3.TabIndex = 20;
-            // 
-            // comment_text
-            // 
-            this.comment_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comment_text.Location = new System.Drawing.Point(13, 56);
-            this.comment_text.Multiline = true;
-            this.comment_text.Name = "comment_text";
-            this.comment_text.ReadOnly = true;
-            this.comment_text.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.comment_text.Size = new System.Drawing.Size(802, 186);
-            this.comment_text.TabIndex = 5;
             // 
             // label2
             // 
@@ -561,96 +623,153 @@
             this.followup_label.TabIndex = 1;
             this.followup_label.Text = "Follow-Ups";
             // 
-            // save_button
-            // 
-            this.save_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("save_button.BackgroundImage")));
-            this.save_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.save_button.Location = new System.Drawing.Point(764, 28);
-            this.save_button.Name = "save_button";
-            this.save_button.Size = new System.Drawing.Size(51, 59);
-            this.save_button.TabIndex = 12;
-            this.save_button.UseVisualStyleBackColor = true;
-            this.save_button.Click += new System.EventHandler(this.save_button_Click);
-            // 
-            // saved_label
-            // 
-            this.saved_label.AutoSize = true;
-            this.saved_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.saved_label.ForeColor = System.Drawing.Color.LimeGreen;
-            this.saved_label.Location = new System.Drawing.Point(758, 86);
-            this.saved_label.Name = "saved_label";
-            this.saved_label.Size = new System.Drawing.Size(60, 18);
-            this.saved_label.TabIndex = 20;
-            this.saved_label.Text = "SAVED!";
-            this.saved_label.Visible = false;
-            // 
             // hide_success_label
             // 
             this.hide_success_label.Tick += new System.EventHandler(this.hide_success_label_Tick);
             // 
-            // error_label
-            // 
-            this.error_label.AutoSize = true;
-            this.error_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.error_label.ForeColor = System.Drawing.Color.LightCoral;
-            this.error_label.Location = new System.Drawing.Point(500, 19);
-            this.error_label.Name = "error_label";
-            this.error_label.Size = new System.Drawing.Size(304, 18);
-            this.error_label.TabIndex = 21;
-            this.error_label.Text = "CANNOT LEAVE REQUIRD FIELDS EMPTY";
-            this.error_label.Visible = false;
-            // 
-            // required_id
-            // 
-            this.required_id.AutoSize = true;
-            this.required_id.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.required_id.ForeColor = System.Drawing.Color.Red;
-            this.required_id.Location = new System.Drawing.Point(427, 57);
-            this.required_id.Name = "required_id";
-            this.required_id.Size = new System.Drawing.Size(20, 25);
-            this.required_id.TabIndex = 22;
-            this.required_id.Text = "*";
-            this.required_id.Visible = false;
-            // 
-            // required_name
-            // 
-            this.required_name.AutoSize = true;
-            this.required_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.required_name.ForeColor = System.Drawing.Color.Red;
-            this.required_name.Location = new System.Drawing.Point(427, 94);
-            this.required_name.Name = "required_name";
-            this.required_name.Size = new System.Drawing.Size(20, 25);
-            this.required_name.TabIndex = 23;
-            this.required_name.Text = "*";
-            this.required_name.Visible = false;
-            // 
-            // required_surname
-            // 
-            this.required_surname.AutoSize = true;
-            this.required_surname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.required_surname.ForeColor = System.Drawing.Color.Red;
-            this.required_surname.Location = new System.Drawing.Point(427, 130);
-            this.required_surname.Name = "required_surname";
-            this.required_surname.Size = new System.Drawing.Size(20, 25);
-            this.required_surname.TabIndex = 24;
-            this.required_surname.Text = "*";
-            this.required_surname.Visible = false;
-            // 
-            // required_tel
-            // 
-            this.required_tel.AutoSize = true;
-            this.required_tel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.required_tel.ForeColor = System.Drawing.Color.Red;
-            this.required_tel.Location = new System.Drawing.Point(427, 168);
-            this.required_tel.Name = "required_tel";
-            this.required_tel.Size = new System.Drawing.Size(20, 25);
-            this.required_tel.TabIndex = 25;
-            this.required_tel.Text = "*";
-            this.required_tel.Visible = false;
-            // 
             // hide_error_label
             // 
             this.hide_error_label.Tick += new System.EventHandler(this.hide_error_label_Tick);
+            // 
+            // submitComment_button
+            // 
+            this.submitComment_button.BackColor = System.Drawing.Color.White;
+            this.submitComment_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("submitComment_button.BackgroundImage")));
+            this.submitComment_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.submitComment_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.submitComment_button.Location = new System.Drawing.Point(774, 259);
+            this.submitComment_button.Name = "submitComment_button";
+            this.submitComment_button.Size = new System.Drawing.Size(41, 31);
+            this.submitComment_button.TabIndex = 9;
+            this.submitComment_button.UseVisualStyleBackColor = false;
+            this.submitComment_button.Click += new System.EventHandler(this.submitComment_button_Click);
+            // 
+            // commentsubmit_text
+            // 
+            this.commentsubmit_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.commentsubmit_text.Location = new System.Drawing.Point(13, 259);
+            this.commentsubmit_text.Multiline = true;
+            this.commentsubmit_text.Name = "commentsubmit_text";
+            this.commentsubmit_text.Size = new System.Drawing.Size(755, 31);
+            this.commentsubmit_text.TabIndex = 8;
+            // 
+            // comment_text
+            // 
+            this.comment_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comment_text.Location = new System.Drawing.Point(13, 56);
+            this.comment_text.Multiline = true;
+            this.comment_text.Name = "comment_text";
+            this.comment_text.ReadOnly = true;
+            this.comment_text.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.comment_text.Size = new System.Drawing.Size(802, 186);
+            this.comment_text.TabIndex = 5;
+            // 
+            // allReminders_panel
+            // 
+            this.allReminders_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.allReminders_panel.Controls.Add(this.upcomingRem_labe);
+            this.allReminders_panel.Controls.Add(this.reminders_panel);
+            this.allReminders_panel.Controls.Add(this.addRrem_button);
+            this.allReminders_panel.Controls.Add(this.setReminder_panel);
+            this.allReminders_panel.Controls.Add(this.reminders_label);
+            this.allReminders_panel.Location = new System.Drawing.Point(12, 993);
+            this.allReminders_panel.Name = "allReminders_panel";
+            this.allReminders_panel.Size = new System.Drawing.Size(843, 280);
+            this.allReminders_panel.TabIndex = 21;
+            // 
+            // reminders_panel
+            // 
+            this.reminders_panel.AutoScroll = true;
+            this.reminders_panel.BackColor = System.Drawing.Color.White;
+            this.reminders_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.reminders_panel.Location = new System.Drawing.Point(483, 68);
+            this.reminders_panel.Name = "reminders_panel";
+            this.reminders_panel.Size = new System.Drawing.Size(345, 167);
+            this.reminders_panel.TabIndex = 24;
+            // 
+            // addRrem_button
+            // 
+            this.addRrem_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("addRrem_button.BackgroundImage")));
+            this.addRrem_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.addRrem_button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.addRrem_button.FlatAppearance.BorderSize = 0;
+            this.addRrem_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addRrem_button.Location = new System.Drawing.Point(149, 13);
+            this.addRrem_button.Name = "addRrem_button";
+            this.addRrem_button.Size = new System.Drawing.Size(29, 27);
+            this.addRrem_button.TabIndex = 23;
+            this.addRrem_button.UseVisualStyleBackColor = true;
+            this.addRrem_button.Click += new System.EventHandler(this.addRrem_button_Click);
+            // 
+            // setReminder_panel
+            // 
+            this.setReminder_panel.Controls.Add(this.remMessage_text);
+            this.setReminder_panel.Controls.Add(this.remMessage_label);
+            this.setReminder_panel.Controls.Add(this.reminder_datetime);
+            this.setReminder_panel.Controls.Add(this.reminderDate_label);
+            this.setReminder_panel.Location = new System.Drawing.Point(17, 56);
+            this.setReminder_panel.Name = "setReminder_panel";
+            this.setReminder_panel.Size = new System.Drawing.Size(452, 196);
+            this.setReminder_panel.TabIndex = 22;
+            // 
+            // remMessage_text
+            // 
+            this.remMessage_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.remMessage_text.Location = new System.Drawing.Point(113, 58);
+            this.remMessage_text.Multiline = true;
+            this.remMessage_text.Name = "remMessage_text";
+            this.remMessage_text.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.remMessage_text.Size = new System.Drawing.Size(329, 121);
+            this.remMessage_text.TabIndex = 6;
+            // 
+            // remMessage_label
+            // 
+            this.remMessage_label.AutoSize = true;
+            this.remMessage_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.remMessage_label.Location = new System.Drawing.Point(-5, 55);
+            this.remMessage_label.Name = "remMessage_label";
+            this.remMessage_label.Size = new System.Drawing.Size(99, 25);
+            this.remMessage_label.TabIndex = 21;
+            this.remMessage_label.Text = "Message:";
+            // 
+            // reminder_datetime
+            // 
+            this.reminder_datetime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reminder_datetime.Location = new System.Drawing.Point(113, 12);
+            this.reminder_datetime.Name = "reminder_datetime";
+            this.reminder_datetime.Size = new System.Drawing.Size(329, 30);
+            this.reminder_datetime.TabIndex = 20;
+            // 
+            // reminderDate_label
+            // 
+            this.reminderDate_label.AutoSize = true;
+            this.reminderDate_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reminderDate_label.Location = new System.Drawing.Point(-5, 17);
+            this.reminderDate_label.Name = "reminderDate_label";
+            this.reminderDate_label.Size = new System.Drawing.Size(59, 25);
+            this.reminderDate_label.TabIndex = 4;
+            this.reminderDate_label.Text = "Date:";
+            // 
+            // reminders_label
+            // 
+            this.reminders_label.AutoSize = true;
+            this.reminders_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reminders_label.Location = new System.Drawing.Point(12, 11);
+            this.reminders_label.Name = "reminders_label";
+            this.reminders_label.Size = new System.Drawing.Size(131, 29);
+            this.reminders_label.TabIndex = 4;
+            this.reminders_label.Text = "Reminders";
+            // 
+            // upcomingRem_labe
+            // 
+            this.upcomingRem_labe.AutoSize = true;
+            this.upcomingRem_labe.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.upcomingRem_labe.Location = new System.Drawing.Point(495, 13);
+            this.upcomingRem_labe.Name = "upcomingRem_labe";
+            this.upcomingRem_labe.Size = new System.Drawing.Size(141, 29);
+            this.upcomingRem_labe.TabIndex = 25;
+            this.upcomingRem_labe.Text = "Upcoming...";
+            this.upcomingRem_labe.Visible = false;
             // 
             // EditAppointment
             // 
@@ -658,12 +777,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(888, 711);
+            this.ClientSize = new System.Drawing.Size(888, 681);
+            this.Controls.Add(this.allReminders_panel);
             this.Controls.Add(this.followup_panel);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.titlePanel);
+            this.MaximumSize = new System.Drawing.Size(906, 1600);
+            this.MinimumSize = new System.Drawing.Size(18, 47);
             this.Name = "EditAppointment";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EditAppointment";
@@ -679,6 +801,10 @@
             this.panel3.PerformLayout();
             this.followup_panel.ResumeLayout(false);
             this.followup_panel.PerformLayout();
+            this.allReminders_panel.ResumeLayout(false);
+            this.allReminders_panel.PerformLayout();
+            this.setReminder_panel.ResumeLayout(false);
+            this.setReminder_panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -691,8 +817,6 @@
         private System.Windows.Forms.Label created_text;
         private System.Windows.Forms.Label dateCreatedLabel;
         private System.Windows.Forms.Label title_label;
-        private System.Windows.Forms.Button submitComment_button;
-        private System.Windows.Forms.TextBox commentsubmit_text;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox tel2_text;
         private System.Windows.Forms.TextBox surname2_text;
@@ -719,7 +843,6 @@
         private System.Windows.Forms.DateTimePicker timePicker;
         private System.Windows.Forms.Label time_label;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.TextBox comment_text;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel followup_panel;
         private System.Windows.Forms.Label followup_label;
@@ -737,5 +860,18 @@
         private System.Windows.Forms.Label required_id;
         private System.Windows.Forms.Label error_label;
         private System.Windows.Forms.Timer hide_error_label;
+        private System.Windows.Forms.TextBox comment_text;
+        private System.Windows.Forms.TextBox commentsubmit_text;
+        private System.Windows.Forms.Button submitComment_button;
+        private System.Windows.Forms.Panel allReminders_panel;
+        private System.Windows.Forms.Panel reminders_panel;
+        private System.Windows.Forms.Button addRrem_button;
+        private System.Windows.Forms.Panel setReminder_panel;
+        private System.Windows.Forms.TextBox remMessage_text;
+        private System.Windows.Forms.Label remMessage_label;
+        private System.Windows.Forms.DateTimePicker reminder_datetime;
+        private System.Windows.Forms.Label reminderDate_label;
+        private System.Windows.Forms.Label reminders_label;
+        private System.Windows.Forms.Label upcomingRem_labe;
     }
 }

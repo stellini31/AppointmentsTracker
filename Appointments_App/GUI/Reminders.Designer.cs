@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reminders));
             this.reminders_panel = new System.Windows.Forms.Panel();
             this.dismissall_label = new System.Windows.Forms.LinkLabel();
             this.reminders_label = new System.Windows.Forms.Label();
@@ -73,7 +74,9 @@
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1127, 415);
             this.Controls.Add(this.reminders_panel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Reminders";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Reminders";
             this.Load += new System.EventHandler(this.Reminders_Load);
             this.reminders_panel.ResumeLayout(false);

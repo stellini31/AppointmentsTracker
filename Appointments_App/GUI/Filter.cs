@@ -17,10 +17,10 @@ namespace Appointments_App.GUI
     {
         database dbConn;
         Appointments appForm;
-        allAppointments aa;
         DateTime scheduledMin;
         DateTime createdMin;
         public DataTable filteredAppointments = new DataTable();
+        public string allQuery;
 
 
         public Filter(Appointments appForm)
@@ -28,7 +28,6 @@ namespace Appointments_App.GUI
             InitializeComponent();
             dbConn = new database();
             this.appForm = appForm;
-            this.aa = new allAppointments(appForm);
 
             scheduledMin = Convert.ToDateTime(schedule_datetime1.Value);
         }
@@ -201,16 +200,20 @@ namespace Appointments_App.GUI
             }
 
             string filterQueries = statusQuery + scheduleDateQuery + typeQuery + createdDateQuery + haveIntermediaryQuery;
-            string allQuery = null;
+            this.allQuery = null;
             if (filterQueries != "")
             {
                 allQuery = query + filterQueries;
-                allQuery = allQuery.Substring(0, allQuery.Count() - 5) + ";";
+                allQuery = allQuery.Substring(0, allQuery.Count() - 5);
+                appForm.clearFilter_button.Visible = true;
+            }
+            else
+            {
+                appForm.clearFilter_button.Visible = false;
 
-                
             }
             filteredAppointments = dbConn.getAllAppointmentsAsDataTable(allQuery);
-            aa.populateAllAppointments(filteredAppointments);
+            appForm.populateAppointments(appForm.allAppoitnmentsData, filteredAppointments);
             appForm.updateCounterText(appForm.counterAll_label, filteredAppointments.Rows.Count);
             appForm.filteredAppointments = this.filteredAppointments;
         }

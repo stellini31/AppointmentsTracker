@@ -292,7 +292,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(512, 362);
+            this.ClientSize = new System.Drawing.Size(516, 366);
+            this.ControlBox = false;
             this.Controls.Add(this.filter_panel);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(534, 413);

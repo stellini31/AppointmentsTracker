@@ -64,16 +64,11 @@ namespace Appointments_App
             this.addAppointment_button = new System.Windows.Forms.Button();
             this.todayData = new System.Windows.Forms.DataGridView();
             this.total_label = new System.Windows.Forms.Label();
-            this.scheduledAppointmentsTab = new System.Windows.Forms.TabPage();
-            this.doneData = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.unscheduledAppointmentsTab = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.allDate_label = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.clearFilter_button = new System.Windows.Forms.Button();
             this.allRemindersCount_label = new System.Windows.Forms.Label();
             this.allExport_button = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -104,8 +99,6 @@ namespace Appointments_App
             this.tools_panel.SuspendLayout();
             this.search_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.todayData)).BeginInit();
-            this.scheduledAppointmentsTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.doneData)).BeginInit();
             this.unscheduledAppointmentsTab.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -116,7 +109,6 @@ namespace Appointments_App
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.todayAppointmentsTab);
-            this.tabControl1.Controls.Add(this.scheduledAppointmentsTab);
             this.tabControl1.Controls.Add(this.unscheduledAppointmentsTab);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(0, 1);
@@ -517,60 +509,6 @@ namespace Appointments_App
             this.total_label.TabIndex = 23;
             this.total_label.Text = "label7";
             // 
-            // scheduledAppointmentsTab
-            // 
-            this.scheduledAppointmentsTab.Controls.Add(this.doneData);
-            this.scheduledAppointmentsTab.Location = new System.Drawing.Point(4, 38);
-            this.scheduledAppointmentsTab.Name = "scheduledAppointmentsTab";
-            this.scheduledAppointmentsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scheduledAppointmentsTab.Size = new System.Drawing.Size(1685, 815);
-            this.scheduledAppointmentsTab.TabIndex = 1;
-            this.scheduledAppointmentsTab.Text = "Scheduled";
-            this.scheduledAppointmentsTab.UseVisualStyleBackColor = true;
-            // 
-            // doneData
-            // 
-            this.doneData.AllowUserToAddRows = false;
-            this.doneData.AllowUserToDeleteRows = false;
-            this.doneData.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-            this.doneData.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.doneData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.doneData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn8});
-            this.doneData.Location = new System.Drawing.Point(21, 39);
-            this.doneData.Name = "doneData";
-            this.doneData.ReadOnly = true;
-            this.doneData.RowTemplate.Height = 24;
-            this.doneData.Size = new System.Drawing.Size(1114, 630);
-            this.doneData.TabIndex = 4;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "Title";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.HeaderText = "Surname";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "Date Created";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            // 
             // unscheduledAppointmentsTab
             // 
             this.unscheduledAppointmentsTab.Controls.Add(this.panel1);
@@ -608,6 +546,7 @@ namespace Appointments_App
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.clearFilter_button);
             this.panel2.Controls.Add(this.allRemindersCount_label);
             this.panel2.Controls.Add(this.allExport_button);
             this.panel2.Controls.Add(this.label6);
@@ -630,6 +569,21 @@ namespace Appointments_App
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1664, 89);
             this.panel2.TabIndex = 27;
+            // 
+            // clearFilter_button
+            // 
+            this.clearFilter_button.BackColor = System.Drawing.Color.Transparent;
+            this.clearFilter_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("clearFilter_button.BackgroundImage")));
+            this.clearFilter_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.clearFilter_button.FlatAppearance.BorderSize = 0;
+            this.clearFilter_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.clearFilter_button.Location = new System.Drawing.Point(191, 8);
+            this.clearFilter_button.Name = "clearFilter_button";
+            this.clearFilter_button.Size = new System.Drawing.Size(76, 54);
+            this.clearFilter_button.TabIndex = 31;
+            this.clearFilter_button.UseVisualStyleBackColor = false;
+            this.clearFilter_button.Visible = false;
+            this.clearFilter_button.Click += new System.EventHandler(this.clearFilter_button_Click);
             // 
             // allRemindersCount_label
             // 
@@ -656,6 +610,7 @@ namespace Appointments_App
             this.allExport_button.TabIndex = 30;
             this.allExport_button.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.allExport_button.UseVisualStyleBackColor = false;
+            this.allExport_button.Click += new System.EventHandler(this.allExport_button_Click);
             // 
             // label6
             // 
@@ -749,6 +704,7 @@ namespace Appointments_App
             this.allImport_button.TabIndex = 26;
             this.allImport_button.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.allImport_button.UseVisualStyleBackColor = false;
+            this.allImport_button.Click += new System.EventHandler(this.allImport_button_Click);
             // 
             // label9
             // 
@@ -943,8 +899,6 @@ namespace Appointments_App
             this.search_panel.ResumeLayout(false);
             this.search_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.todayData)).EndInit();
-            this.scheduledAppointmentsTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.doneData)).EndInit();
             this.unscheduledAppointmentsTab.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -961,13 +915,7 @@ namespace Appointments_App
         private TabControl tabControl1;
         private TabPage todayAppointmentsTab;
         public DataGridView todayData;
-        private TabPage scheduledAppointmentsTab;
         private TabPage unscheduledAppointmentsTab;
-        private DataGridView doneData;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private Panel dataPanel;
         private Panel panel1;
         private Button addAppointment_button;
@@ -1024,6 +972,7 @@ namespace Appointments_App
         private Button allSearch_button;
         private Button allAddApp_button;
         private Label allDate_label;
+        public Button clearFilter_button;
     }
 }
 

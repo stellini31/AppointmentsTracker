@@ -51,6 +51,10 @@
             this.comment_text = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.required_tel = new System.Windows.Forms.Label();
+            this.required_surname = new System.Windows.Forms.Label();
+            this.required_name = new System.Windows.Forms.Label();
+            this.required_id = new System.Windows.Forms.Label();
             this.tel2_text = new System.Windows.Forms.TextBox();
             this.surname2_text = new System.Windows.Forms.TextBox();
             this.name2_text = new System.Windows.Forms.TextBox();
@@ -70,16 +74,12 @@
             this.description_text = new System.Windows.Forms.TextBox();
             this.datePicker = new System.Windows.Forms.DateTimePicker();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.required_desc = new System.Windows.Forms.Label();
             this.error_label = new System.Windows.Forms.Label();
             this.TimePicker = new System.Windows.Forms.DateTimePicker();
             this.appInfo_label = new System.Windows.Forms.Label();
             this.hide_success_label = new System.Windows.Forms.Timer(this.components);
             this.hide_error_label = new System.Windows.Forms.Timer(this.components);
-            this.required_tel = new System.Windows.Forms.Label();
-            this.required_surname = new System.Windows.Forms.Label();
-            this.required_name = new System.Windows.Forms.Label();
-            this.required_id = new System.Windows.Forms.Label();
-            this.required_desc = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.page_panel.SuspendLayout();
             this.reminder_panel.SuspendLayout();
@@ -330,6 +330,54 @@
             this.panel2.Size = new System.Drawing.Size(811, 262);
             this.panel2.TabIndex = 4;
             // 
+            // required_tel
+            // 
+            this.required_tel.AutoSize = true;
+            this.required_tel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.required_tel.ForeColor = System.Drawing.Color.Red;
+            this.required_tel.Location = new System.Drawing.Point(427, 168);
+            this.required_tel.Name = "required_tel";
+            this.required_tel.Size = new System.Drawing.Size(20, 25);
+            this.required_tel.TabIndex = 29;
+            this.required_tel.Text = "*";
+            this.required_tel.Visible = false;
+            // 
+            // required_surname
+            // 
+            this.required_surname.AutoSize = true;
+            this.required_surname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.required_surname.ForeColor = System.Drawing.Color.Red;
+            this.required_surname.Location = new System.Drawing.Point(427, 130);
+            this.required_surname.Name = "required_surname";
+            this.required_surname.Size = new System.Drawing.Size(20, 25);
+            this.required_surname.TabIndex = 28;
+            this.required_surname.Text = "*";
+            this.required_surname.Visible = false;
+            // 
+            // required_name
+            // 
+            this.required_name.AutoSize = true;
+            this.required_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.required_name.ForeColor = System.Drawing.Color.Red;
+            this.required_name.Location = new System.Drawing.Point(427, 94);
+            this.required_name.Name = "required_name";
+            this.required_name.Size = new System.Drawing.Size(20, 25);
+            this.required_name.TabIndex = 27;
+            this.required_name.Text = "*";
+            this.required_name.Visible = false;
+            // 
+            // required_id
+            // 
+            this.required_id.AutoSize = true;
+            this.required_id.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.required_id.ForeColor = System.Drawing.Color.Red;
+            this.required_id.Location = new System.Drawing.Point(427, 57);
+            this.required_id.Name = "required_id";
+            this.required_id.Size = new System.Drawing.Size(20, 25);
+            this.required_id.TabIndex = 26;
+            this.required_id.Text = "*";
+            this.required_id.Visible = false;
+            // 
             // tel2_text
             // 
             this.tel2_text.Enabled = false;
@@ -506,12 +554,24 @@
             this.panel4.Size = new System.Drawing.Size(742, 229);
             this.panel4.TabIndex = 18;
             // 
+            // required_desc
+            // 
+            this.required_desc.AutoSize = true;
+            this.required_desc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.required_desc.ForeColor = System.Drawing.Color.Red;
+            this.required_desc.Location = new System.Drawing.Point(691, 66);
+            this.required_desc.Name = "required_desc";
+            this.required_desc.Size = new System.Drawing.Size(20, 25);
+            this.required_desc.TabIndex = 30;
+            this.required_desc.Text = "*";
+            this.required_desc.Visible = false;
+            // 
             // error_label
             // 
             this.error_label.AutoSize = true;
             this.error_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.error_label.ForeColor = System.Drawing.Color.LightCoral;
-            this.error_label.Location = new System.Drawing.Point(501, 26);
+            this.error_label.Location = new System.Drawing.Point(433, 26);
             this.error_label.Name = "error_label";
             this.error_label.Size = new System.Drawing.Size(184, 18);
             this.error_label.TabIndex = 20;
@@ -545,66 +605,6 @@
             // 
             this.hide_error_label.Tick += new System.EventHandler(this.hide_error_label_Tick);
             // 
-            // required_tel
-            // 
-            this.required_tel.AutoSize = true;
-            this.required_tel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.required_tel.ForeColor = System.Drawing.Color.Red;
-            this.required_tel.Location = new System.Drawing.Point(427, 168);
-            this.required_tel.Name = "required_tel";
-            this.required_tel.Size = new System.Drawing.Size(20, 25);
-            this.required_tel.TabIndex = 29;
-            this.required_tel.Text = "*";
-            this.required_tel.Visible = false;
-            // 
-            // required_surname
-            // 
-            this.required_surname.AutoSize = true;
-            this.required_surname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.required_surname.ForeColor = System.Drawing.Color.Red;
-            this.required_surname.Location = new System.Drawing.Point(427, 130);
-            this.required_surname.Name = "required_surname";
-            this.required_surname.Size = new System.Drawing.Size(20, 25);
-            this.required_surname.TabIndex = 28;
-            this.required_surname.Text = "*";
-            this.required_surname.Visible = false;
-            // 
-            // required_name
-            // 
-            this.required_name.AutoSize = true;
-            this.required_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.required_name.ForeColor = System.Drawing.Color.Red;
-            this.required_name.Location = new System.Drawing.Point(427, 94);
-            this.required_name.Name = "required_name";
-            this.required_name.Size = new System.Drawing.Size(20, 25);
-            this.required_name.TabIndex = 27;
-            this.required_name.Text = "*";
-            this.required_name.Visible = false;
-            // 
-            // required_id
-            // 
-            this.required_id.AutoSize = true;
-            this.required_id.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.required_id.ForeColor = System.Drawing.Color.Red;
-            this.required_id.Location = new System.Drawing.Point(427, 57);
-            this.required_id.Name = "required_id";
-            this.required_id.Size = new System.Drawing.Size(20, 25);
-            this.required_id.TabIndex = 26;
-            this.required_id.Text = "*";
-            this.required_id.Visible = false;
-            // 
-            // required_desc
-            // 
-            this.required_desc.AutoSize = true;
-            this.required_desc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.required_desc.ForeColor = System.Drawing.Color.Red;
-            this.required_desc.Location = new System.Drawing.Point(691, 66);
-            this.required_desc.Name = "required_desc";
-            this.required_desc.Size = new System.Drawing.Size(20, 25);
-            this.required_desc.TabIndex = 30;
-            this.required_desc.Text = "*";
-            this.required_desc.Visible = false;
-            // 
             // AddAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -613,6 +613,7 @@
             this.ClientSize = new System.Drawing.Size(921, 743);
             this.Controls.Add(this.pageTitle_label);
             this.Controls.Add(this.page_panel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(939, 790);
             this.MinimumSize = new System.Drawing.Size(939, 790);
             this.Name = "AddAppointment";

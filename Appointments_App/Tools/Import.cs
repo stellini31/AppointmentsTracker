@@ -43,9 +43,15 @@ namespace Appointments_App.Tools
                         string additionalPersonTel = rows[12];
                         int done = Int32.Parse(rows[13]);
                         int followUp = 0;
+                        string comment = rows[15];
 
                         appointment a = new appointment(title, schedule, appointmentTypeId, personId, personName, personSurname, personTel, created, intermediary, additionalPersonId, additionalPersonName, additionalPersonSurname, additionalPersonTel, done, followUp, -1);
                         dbConn.SaveAppointment(a);
+                        if(comment != "")
+                        {
+                            dbConn.saveComment(comment, 5, -1);
+                        }
+                        
                     }
 
                     firstRow = false;

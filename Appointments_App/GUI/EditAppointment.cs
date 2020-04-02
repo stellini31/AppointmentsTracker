@@ -74,6 +74,9 @@ namespace Appointments_App.GUI
                 this.loadFollowUps();
             }
 
+            //Getting Reminders
+            this.loadReminders();
+
             //In case appointment is done dont allow to edit fields
             if (a.Done == 1)
             {
@@ -91,6 +94,22 @@ namespace Appointments_App.GUI
                 parent_label.Visible = true;
                 parent_link.Text = a.FollowUpParentId.ToString();
                 parent_link.Visible = true;
+            }
+        }
+
+        private void loadReminders()
+        {
+            int startPosition = 5;
+            int endPosition = 10;
+            reminders_panel.Controls.Clear();
+            List<reminder> reminders = dbConn.getRemindersForAppointment(a.AppointmentId);
+            upcomingRem_labe.Visible = reminders.Count() > 0 ? true : false;
+
+            foreach (reminder rem in reminders)
+            {
+                Panel p = addRemPanel(rem, startPosition, endPosition);
+                reminders_panel.Controls.Add(p);
+                endPosition += 28;
             }
         }
 
@@ -134,7 +153,7 @@ namespace Appointments_App.GUI
                     followup_button.Visible = true;
                 }
                 string commentDescription = "Closed Appointment";
-                dbConn.saveComment(commentDescription, 3);
+                dbConn.saveComment(commentDescription, 3, a.AppointmentId);
 
                 this.addComment(commentDescription, DateTime.Now);
             }
@@ -155,6 +174,8 @@ namespace Appointments_App.GUI
             submitComment_button.Enabled = false;
             commentsubmit_text.Enabled = false;
             save_button.Enabled = false;
+            setReminder_panel.Enabled = false;
+            addRrem_button.Enabled = false;
         }
 
         private void parent_link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -180,13 +201,13 @@ namespace Appointments_App.GUI
 
             foreach (appointment fu in followups)
             {
-                Panel p = addPanel(fu.AppointmentId, fu.AppointmentDate, fu.Done, startPosition, endPosition);
+                Panel p = addFUPanel(fu.AppointmentId, fu.AppointmentDate, fu.Done, startPosition, endPosition);
                 followsupItems_panel.Controls.Add(p);
                 endPosition += 30;
             }
         }
 
-        private Panel addPanel(int appointmentId, DateTime scheduleDate, int status, int startPosition, int endPosition)
+        private Panel addFUPanel(int appointmentId, DateTime scheduleDate, int status, int startPosition, int endPosition)
         {
             Panel p = new Panel();
             p.Location = new Point(startPosition, endPosition);
@@ -227,6 +248,31 @@ namespace Appointments_App.GUI
             return p;
         }
 
+        private Panel addRemPanel(reminder r , int startPosition, int endPosition)
+        {
+            Panel p = new Panel();
+            p.Location = new Point(startPosition, endPosition);
+            p.Width = 230;
+            p.Height = 23;
+            p.BackColor = Color.Transparent;
+
+            Label desc = new Label();
+            desc.Location = new Point(10, 0);
+            desc.Width = 167;
+            desc.Height = 23;
+            desc.Text = r.ReminderMessage;
+            p.Controls.Add(desc);
+
+            Label date = new Label();
+            date.Text = r.ReminderDate.ToShortDateString();
+            date.Width = 65;
+            date.Height = 32;
+            date.Location = new Point(167, 0);
+            p.Controls.Add(date);
+
+            return p;
+        }
+
         private void submitComment_button_Click(object sender, EventArgs e)
         {
             string commentText = commentsubmit_text.Text;
@@ -258,7 +304,7 @@ namespace Appointments_App.GUI
                     string person2Tel = tel2_text.Text.Replace("'", "");
                     string intermediary = intermediary_text.Text.Replace("'", "");
                     DateTime created = a.DateCreated;
-                    int done = dbConn.getAppointmentStatus(a.AppointmentId);
+                    int done = dbConn.getAppointmentStatusById(a.AppointmentId);
                     int followUp = a.Followup;
                     int parentId = a.FollowUpParentId;
 
@@ -302,6 +348,18 @@ namespace Appointments_App.GUI
         {
             error_label.Visible = false;
             hide_error_label.Stop();
+        }
+
+        private void addRrem_button_Click(object sender, EventArgs e)
+        {
+            DateTime remDate = reminder_datetime.Value;
+            string message = remMessage_text.Text == "" ? a.AppointmentDesc : remMessage_text.Text;
+            reminder rem = new reminder(remDate, message, a.AppointmentId, 0);
+            dbConn.saveReminder(rem);
+
+            remMessage_text.Text = "";
+            reminder_datetime.Value = DateTime.Now;
+            this.loadReminders();
         }
     }
 }

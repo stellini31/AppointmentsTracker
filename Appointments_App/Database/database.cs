@@ -14,11 +14,13 @@ namespace Appointments_App.Database
         string connString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\bin\Debug\Appointments.accdb";
 
        
-        public List<appointment> getAllAppointments(string query = null)
+        /*public List<appointment> getAllAppointments(string addQuery = null)
         {
-            if(query == null)
+            string query = "SELECT * FROM Appointments ";
+
+            if (addQuery != null)
             {
-                query = "SELECT * FROM Appointments;";
+                query += addQuery;
             }
              
             List<appointment> appointments = new List<appointment>();
@@ -57,7 +59,7 @@ namespace Appointments_App.Database
                 reader.Close();
             }
             return appointments;
-        }
+        }*/
 
         public appointment getAppointmentByTitle(string title)
         {
@@ -104,19 +106,39 @@ namespace Appointments_App.Database
         public DataTable getAllAppointmentsAsDataTable(string additionalQuery = null)
         {
             string selectCount = "SELECT TOP 200";
-            string query = " appointment_description AS Title, person_name AS Name, person_surname AS Surname, Format(appointment_date, \"Short Date\") as Schedule_Date , appointment_type as Type, Comment " + @"
-                        FROM(appointments
-                        INNER JOIN appointmentTypes ON appointmentTypes.ID = appointments.appointment_type_id)
-                        INNER JOIN
-                        (SELECT comment, appointments.ID from appointments
-                        LEFT OUTER JOIN (SELECT TOP 1 * from comments ORDER BY date_added DESC) AS t ON t.appointment_id = appointments.id) AS ta ON ta.ID = appointments.id ";
+            string query =      " appointment_description AS Title, person_name AS Name, person_surname AS Surname, Format(appointment_date, \"Short Date\") as Schedule , appointment_type as Type, Comment, done " + @"                       
+                                FROM(appointments
+                                INNER JOIN appointmentTypes ON appointmentTypes.ID = appointments.appointment_type_id)
+                                LEFT OUTER JOIN(select appointment_id, comment from comments where ID in (select MAX(ID) from comments group by appointment_id)) AS ta ON ta.appointment_id = appointments.id  ";
 
             if (additionalQuery != null)
             {
                 query += additionalQuery;
                 selectCount = "SELECT ";
             }
-            query = selectCount + query;
+            query = selectCount + query + " ORDER BY appointment_date DESC";
+            DataTable appointments = new DataTable();
+            using (OleDbConnection connection = new OleDbConnection(this.connString))
+            {
+                connection.Open();
+                OleDbCommand cmd = new OleDbCommand(query, connection);
+                appointments.Load(cmd.ExecuteReader());
+                connection.Close();
+            }
+            return appointments;
+        }
+
+        public DataTable getAllAppointmentsAllData(string additionalQuery = null)
+        {
+            string query =      @"SELECT *                        
+                                FROM(appointments
+                                INNER JOIN appointmentTypes ON appointmentTypes.ID = appointments.appointment_type_id)
+                                LEFT OUTER JOIN(select appointment_id, comment from comments where ID in (select MAX(ID) from comments group by appointment_id)) AS ta ON ta.appointment_id = appointments.id ";
+
+            if (additionalQuery != null)
+            {
+                query += additionalQuery;
+            }
             DataTable appointments = new DataTable();
             using (OleDbConnection connection = new OleDbConnection(this.connString))
             {
@@ -233,7 +255,28 @@ namespace Appointments_App.Database
 
         public DataTable getTodayAppointmentsDataTable()
         {
-            string query = "SELECT appointment_description AS Title, person_name AS Name, person_surname AS Surname, Format(appointment_date, \"Short Time\") as Schedule , appointment_type as Type, Comment " + @"
+            string query = "SELECT appointment_description AS Title, person_name AS Name, person_surname AS Surname, Format(appointment_date, \"Short Time\") as Schedule , appointment_type as Type, Comment, done " + @"                       
+                            FROM(appointments
+                            INNER JOIN appointmentTypes ON appointmentTypes.ID = appointments.appointment_type_id)
+                            LEFT OUTER JOIN(select appointment_id, comment from comments where ID in (select MAX(ID) from comments group by appointment_id)) AS ta ON ta.appointment_id = appointments.id
+                            WHERE appointment_date > DATE() AND appointment_date < DATE() +1 AND done = 0
+                            ORDER BY appointment_date;";
+        
+
+            DataTable appointments = new DataTable();
+            using (OleDbConnection connection = new OleDbConnection(this.connString))
+            {
+                connection.Open();
+                OleDbCommand cmd = new OleDbCommand(query, connection);
+                appointments.Load(cmd.ExecuteReader());
+                connection.Close();
+            }
+            return appointments;
+        }
+
+        public DataTable getTodayAppointmentsAllData()
+        {
+            string query = @"SELECT *
                             FROM(appointments
                             INNER JOIN appointmentTypes ON appointmentTypes.ID = appointments.appointment_type_id)
                             INNER JOIN
@@ -241,7 +284,7 @@ namespace Appointments_App.Database
                             LEFT OUTER JOIN (SELECT TOP 1 * from comments ORDER BY date_added DESC) AS t ON t.appointment_id = appointments.id) AS ta ON ta.ID = appointments.id
                             WHERE appointment_date > DATE() AND appointment_date < DATE() +1 AND done = 0
                             ORDER BY appointment_date;";
-        
+
 
             DataTable appointments = new DataTable();
             using (OleDbConnection connection = new OleDbConnection(this.connString))
@@ -277,7 +320,7 @@ namespace Appointments_App.Database
             return types;
         }
 
-        public Dictionary<int, string> getAllAppointmentTypesDict()
+        /*public Dictionary<int, string> getAllAppointmentTypesDict()
         {
             string query = "SELECT * FROM AppointmentTypes;";
 
@@ -299,7 +342,7 @@ namespace Appointments_App.Database
                 reader.Close();
             }
             return types;
-        }
+        }*/
 
         public void SaveAppointment(appointment a)
         {
@@ -397,7 +440,7 @@ namespace Appointments_App.Database
             }
         }
 
-        public string getCommentsByAppointmentIdAsString(int appointmentId)
+        /*public string getCommentsByAppointmentIdAsString(int appointmentId)
         {
             string comment = "";
 
@@ -417,11 +460,12 @@ namespace Appointments_App.Database
                 reader.Close();
                 return comment;
             }
-        }
+        }*/
 
         public void saveReminder(reminder rem)
         {
-            string query = "INSERT INTO Reminders (reminder_date, reminder_message, appointment_id) VALUES ('" + rem.ReminderDate + "' , '" + rem.ReminderMessage + "', " + rem.AppointmentId + ");";
+            string date = rem.ReminderDate.ToShortDateString();
+            string query = "INSERT INTO Reminders (reminder_date, reminder_message, appointment_id) VALUES ('" + date + "' , '" + rem.ReminderMessage + "', " + rem.AppointmentId + ");";
             using (OleDbConnection connection = new OleDbConnection(this.connString))
             {
                 connection.Open();
@@ -434,7 +478,7 @@ namespace Appointments_App.Database
             }
         }
 
-        public int getLastReminderId()
+        /*public int getLastReminderId()
         {
             string query = "SELECT TOP 1 * FROM Reminders Order By ID DESC;";
             int id = -1;
@@ -452,7 +496,7 @@ namespace Appointments_App.Database
                 reader.Close();
                 return id;
             }
-        }
+        }*/
         
         private List<reminder> getRemindersByAppointmentId(int appointmentId)
         {
@@ -610,9 +654,31 @@ namespace Appointments_App.Database
             return followups;
         }
 
-        public int getAppointmentStatus(int appointmentId)
+        public int getAppointmentStatusById(int appointmentId)
         {
             string query = "SELECT done from appointments where ID = " + appointmentId + ";";
+            int done = 0;
+
+            using (OleDbConnection connection = new OleDbConnection(this.connString))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand command = new OleDbCommand(query, connection);
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    done = Int32.Parse(reader[0].ToString());
+                    return done;
+                }
+                connection.Close();
+                reader.Close();
+            }
+            return done;
+        }
+
+        public int getAppointmentStatusByTitle(string appointmentTitle)
+        {
+            string query = "SELECT done from appointments where appointment_description = '" + appointmentTitle + "';";
             int done = 0;
 
             using (OleDbConnection connection = new OleDbConnection(this.connString))
@@ -647,14 +713,12 @@ namespace Appointments_App.Database
 
         public DataTable searchTodayAppointmets(string text)
         {
-            string query = "SELECT appointment_description AS Title, person_name AS Name, person_surname AS Surname, Format(appointment_date, \"Short Time\") as Schedule , appointment_type as Type, Comment " + @"
+            string query = "SELECT appointment_description AS Title, person_name AS Name, person_surname AS Surname, Format(appointment_date, \"Short Time\") as Schedule , appointment_type as Type, Comment, done " + @"                       
                             FROM(appointments
                             INNER JOIN appointmentTypes ON appointmentTypes.ID = appointments.appointment_type_id)
-                            INNER JOIN
-                            (SELECT comment, appointments.ID from appointments
-                            LEFT OUTER JOIN (SELECT TOP 1 * from comments ORDER BY date_added DESC) AS t ON t.appointment_id = appointments.id) AS ta ON ta.ID = appointments.id
+                            LEFT OUTER JOIN(select appointment_id, comment from comments where ID in (select MAX(ID) from comments group by appointment_id)) AS ta ON ta.appointment_id = appointments.id
                             WHERE appointment_date > DATE() AND appointment_date < DATE() +1 AND done = 0 AND
-                            (appointment_description like OR person_id like ? or person_name like ? or person_surname like ? or person_tel like ? or additional_person_id like ? or additional_pers_name like ? or additional_pers_surname like ? or additional_pers_tel like ? or intermediary_name like ? )
+                            (appointment_description like ? OR person_id like ? or person_name like ? or person_surname like ? or person_tel like ? or additional_person_id like ? or additional_pers_name like ? or additional_pers_surname like ? or additional_pers_tel like ? or intermediary_name like ? )
                             ORDER BY appointment_date;";
 
             DataTable searchedTodayAppointments = new DataTable();
@@ -681,14 +745,12 @@ namespace Appointments_App.Database
 
         public DataTable searchAllAppointmets(string text)
         {
-            string query = "SELECT appointment_description AS Title, person_name AS Name, person_surname AS Surname, Format(appointment_date, \"Short Date\") as Schedule , appointment_type as Type, Comment " + @"
+            string query = "SELECT appointment_description AS Title, person_name AS Name, person_surname AS Surname, Format(appointment_date, \"Short Date\") as Schedule , appointment_type as Type, Comment, done " + @"                       
                             FROM(appointments
                             INNER JOIN appointmentTypes ON appointmentTypes.ID = appointments.appointment_type_id)
-                            INNER JOIN
-                            (SELECT comment, appointments.ID from appointments
-                            LEFT OUTER JOIN (SELECT TOP 1 * from comments ORDER BY date_added DESC) AS t ON t.appointment_id = appointments.id) AS ta ON ta.ID = appointments.id
+                            LEFT OUTER JOIN(select appointment_id, comment from comments where ID in (select MAX(ID) from comments group by appointment_id)) AS ta ON ta.appointment_id = appointments.id
                             WHERE appointment_description like ? OR person_id like ? or person_name like ? or person_surname like ? or person_tel like ? or additional_person_id like ? or additional_pers_name like ? or additional_pers_surname like ? or additional_pers_tel like ? or intermediary_name like ?
-                            ORDER BY appointment_date;";
+                            ORDER BY appointment_date DESC;";
 
             DataTable searchedTodayAppointments = new DataTable();
             using (OleDbConnection connection = new OleDbConnection(this.connString))
@@ -710,6 +772,51 @@ namespace Appointments_App.Database
                 connection.Close();
             }
             return searchedTodayAppointments;
+        }
+
+        public List<reminder> getRemindersForAppointment(int appointmentId)
+        {
+            string query = "SELECT * FROM Reminders where appointment_id = " + appointmentId + " AND dismissed = 0 ORDER BY reminder_date ASC;";
+            List<reminder> reminders = new List<reminder>();
+
+            using (OleDbConnection connection = new OleDbConnection(this.connString))
+            {
+                connection.Open();
+                OleDbCommand command = new OleDbCommand(query, connection);
+                OleDbDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    DateTime remDate = Convert.ToDateTime(reader[1].ToString());
+                    string message = reader[2].ToString();
+                    int dissmised = Int32.Parse(reader[4].ToString());
+                    reminder rem = new reminder(remDate, message, appointmentId, dissmised);
+                    reminders.Add(rem);
+                }
+                connection.Close();
+                reader.Close();
+            }
+            return reminders;
+        }
+
+        public bool appointmentTitleExists(string title)
+        {
+            string query = "SELECT ID FROM Appointments where appointment_description = '" + title + "';";
+            List<int> ids = new List<int>();
+
+            using (OleDbConnection connection = new OleDbConnection(this.connString))
+            {
+                connection.Open();
+                OleDbCommand command = new OleDbCommand(query, connection);
+                OleDbDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    int id = Int32.Parse(reader[0].ToString());
+                    ids.Add(id);
+                }
+                connection.Close();
+                reader.Close();
+            }
+            return ids.Count > 0 ? true : false;
         }
     }
 }

@@ -16,15 +16,6 @@ namespace Appointments_App.Tools
             this.appForm = a;
         }
 
-        public void populateAllAppointments(DataTable allAppointments)
-        {
-            appForm.allAppoitnmentsData.DataSource = allAppointments;
-            appForm.allAppoitnmentsData.Columns[0].Width = 300;
-            appForm.allAppoitnmentsData.Columns[1].Width = 150;
-            appForm.allAppoitnmentsData.Columns[2].Width = 150;
-            appForm.allAppoitnmentsData.Columns[3].Width = 150;
-            appForm.allAppoitnmentsData.Columns[4].Width = 150;
-            appForm.allAppoitnmentsData.Columns[5].Width = 350;
-        }
+        
     }
 }
