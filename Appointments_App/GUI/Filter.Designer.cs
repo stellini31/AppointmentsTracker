@@ -78,15 +78,15 @@
             // 
             // reset_Button
             // 
-            this.reset_Button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("reset_Button.BackgroundImage")));
             this.reset_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.reset_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.reset_Button.FlatAppearance.BorderSize = 0;
             this.reset_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.reset_Button.Location = new System.Drawing.Point(461, 15);
+            this.reset_Button.Location = new System.Drawing.Point(423, 15);
             this.reset_Button.Name = "reset_Button";
-            this.reset_Button.Size = new System.Drawing.Size(22, 24);
+            this.reset_Button.Size = new System.Drawing.Size(60, 24);
             this.reset_Button.TabIndex = 18;
+            this.reset_Button.Text = "Reset";
             this.reset_Button.UseVisualStyleBackColor = true;
             this.reset_Button.Click += new System.EventHandler(this.reset_Button_Click);
             // 
@@ -295,6 +295,7 @@
             this.ClientSize = new System.Drawing.Size(516, 366);
             this.ControlBox = false;
             this.Controls.Add(this.filter_panel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(534, 413);
             this.MinimumSize = new System.Drawing.Size(534, 413);

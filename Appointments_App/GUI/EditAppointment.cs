@@ -45,12 +45,11 @@ namespace Appointments_App.GUI
             tel2_text.Text = a.AdditionalPersonTel;
 
             //Getting appointments types and selecting the proper index in the combo box
-            List<string> appTypes = dbConn.getAllAppointmentTypes();
-            string type = dbConn.getAppointmentTypeDesc(a.AppointmentTypeId);
-            int index = appTypes.IndexOf(type);
-            foreach (string appType in appTypes)
+            Dictionary<int, string> appTypes = dbConn.getVisibleAppointmentTypes();
+            int index = appTypes.Keys.ToList().IndexOf(a.AppointmentTypeId);
+            foreach (KeyValuePair<int, string> type in appTypes)
             {
-                types_combo.Items.Add(appType);
+                types_combo.Items.Add(type.Value);
             }
             types_combo.SelectedIndex = index;
 

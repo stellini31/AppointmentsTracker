@@ -297,11 +297,11 @@ namespace Appointments_App.Database
             return appointments;
         }
 
-        public List<string> getAllAppointmentTypes()
+        public Dictionary<int, string> getVisibleAppointmentTypes()
         {
-            string query = "SELECT  appointment_type FROM AppointmentTypes;";
+            string query = "SELECT  ID, appointment_type FROM AppointmentTypes WHERE visible = 1;";
 
-            List<string> types = new List<string>();
+            Dictionary<int, string> types = new Dictionary<int, string>();
 
             using (OleDbConnection connection = new OleDbConnection(this.connString))
             {
@@ -311,13 +311,102 @@ namespace Appointments_App.Database
                 reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    string type = reader[0].ToString();
-                    types.Add(type);
+                    int id = Int32.Parse(reader[0].ToString());
+                    string type = reader[1].ToString();
+                    types.Add(id,type);
                 }
                 connection.Close();
                 reader.Close();
             }
             return types;
+        }
+
+        public Dictionary<int, string> getHiddenAppointmentTypes()
+        {
+            string query = "SELECT  ID, appointment_type FROM AppointmentTypes WHERE visible = 0;";
+
+            Dictionary<int, string> types = new Dictionary<int, string>();
+
+            using (OleDbConnection connection = new OleDbConnection(this.connString))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand command = new OleDbCommand(query, connection);
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    int id = Int32.Parse(reader[0].ToString());
+                    string type = reader[1].ToString();
+                    types.Add(id, type);
+                }
+                connection.Close();
+                reader.Close();
+            }
+            return types;
+        }
+
+        public void updateAppointmentTypeToHidden(string type)
+        {
+            string query = "Update AppointmentTypes SET Visible = 0 where appointment_type in (" + type + ");";
+
+            using (OleDbConnection connection = new OleDbConnection(this.connString))
+            {
+                connection.Open();
+                OleDbCommand command = new OleDbCommand(query, connection);
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        public void updateAppointmentTypeToVisible(string type)
+        {
+            string query = "Update AppointmentTypes SET Visible = 1 where appointment_type in (" + type + ");";
+
+            using (OleDbConnection connection = new OleDbConnection(this.connString))
+            {
+                connection.Open();
+                OleDbCommand command = new OleDbCommand(query, connection);
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        public bool existsType(string type)
+        {
+            string query = "SELECT  ID FROM AppointmentTypes WHERE appointment_type = '" + type + "';";
+            bool exists = false;
+            Dictionary<int, string> types = new Dictionary<int, string>();
+
+            using (OleDbConnection connection = new OleDbConnection(this.connString))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand command = new OleDbCommand(query, connection);
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    int id = Int32.Parse(reader[0].ToString());
+                    exists = true;
+                }
+                connection.Close();
+                reader.Close();
+            }
+            return exists;
+        }
+
+        public void SaveAppointmentType(string text)
+        {
+            string query = "INSERT INTO AppointmentTypes (appointment_type, Visible) VALUES ('" + text + "', " + 1 + ");";
+
+            using (OleDbConnection connection = new OleDbConnection(this.connString))
+            {
+                connection.Open();
+                OleDbDataReader reader = null;
+                OleDbCommand command = new OleDbCommand(query, connection);
+                reader = command.ExecuteReader();
+                connection.Close();
+                reader.Close();
+            }
         }
 
         /*public Dictionary<int, string> getAllAppointmentTypesDict()

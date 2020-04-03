@@ -356,11 +356,15 @@ namespace Appointments_App
                     {
                         row.DefaultCellStyle.ForeColor = Color.Red;
                     }
-                    //dataView.Rows[0].DefaultCellStyle.ForeColor = Color.Red;
-                    
                 }
                 
             }
+        }
+
+        private void settings_button_Click(object sender, EventArgs e)
+        {
+            Settings s = new Settings();
+            s.ShowDialog();
         }
     }
 }

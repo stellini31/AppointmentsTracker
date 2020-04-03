@@ -34,7 +34,7 @@ namespace Appointments_App.GUI
 
         private void Filter_Load(object sender, EventArgs e)
         {
-            List<string> allTypes = dbConn.getAllAppointmentTypes();
+            List<string> allTypes = dbConn.getVisibleAppointmentTypes().Values.ToList();
             allTypes.Insert(0, "All");
             for(int i = 0; i < allTypes.Count(); i++)
             {

@@ -169,10 +169,10 @@ namespace Appointments_App.GUI
         private void AddAppointment_Load(object sender, EventArgs e)
         {
             //Loading appointment types
-            List<string> Types = dbConn.getAllAppointmentTypes();
-            foreach(string type in Types)
+            Dictionary<int, string> Types = dbConn.getVisibleAppointmentTypes();
+            foreach(KeyValuePair<int, string> type in Types)
             {
-                types_combo.Items.Add(type);
+                types_combo.Items.Add(type.Value);
             }
             types_combo.SelectedIndex = 0;
 

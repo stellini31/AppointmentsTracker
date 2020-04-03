@@ -12,3 +12,4 @@ C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments
 C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Debug\Appointments_App.Appointments.resources
 C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Debug\Appointments_App.GUI.Reminders.resources
 C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Debug\Appointments_App.GUI.Filter.resources
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Debug\Appointments_App.GUI.Settings.resources

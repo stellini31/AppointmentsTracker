@@ -403,6 +403,7 @@ namespace Appointments_App
             this.settings_button.Size = new System.Drawing.Size(59, 54);
             this.settings_button.TabIndex = 18;
             this.settings_button.UseVisualStyleBackColor = false;
+            this.settings_button.Click += new System.EventHandler(this.settings_button_Click);
             // 
             // label3
             // 
@@ -433,9 +434,9 @@ namespace Appointments_App
             this.filter_button.Enabled = false;
             this.filter_button.FlatAppearance.BorderSize = 0;
             this.filter_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.filter_button.Location = new System.Drawing.Point(191, 8);
+            this.filter_button.Location = new System.Drawing.Point(202, 9);
             this.filter_button.Name = "filter_button";
-            this.filter_button.Size = new System.Drawing.Size(76, 49);
+            this.filter_button.Size = new System.Drawing.Size(60, 49);
             this.filter_button.TabIndex = 15;
             this.filter_button.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.filter_button.UseVisualStyleBackColor = false;
