@@ -215,10 +215,10 @@ namespace Appointments_App.GUI
             p.BackColor = status == 1 ? Color.LightGreen : Color.Orange;
 
             LinkLabel appId = new LinkLabel();
-            appId.Width = 30;
+            appId.Width = 40;
             appId.Height = 25;
             appId.Text = appointmentId.ToString();
-            appId.Location = new Point(15);
+            appId.Location = new Point(5);
             appId.TextAlign = ContentAlignment.MiddleRight;
             appId.Click += (s, e) =>
             {
@@ -315,7 +315,6 @@ namespace Appointments_App.GUI
                     commentsString += DateTime.Now.ToShortDateString() + ": " + comment + "\r\n";
                     comment_text.Text = commentsString;
 
-
                     saved_label.Visible = true;
                     hide_success_label.Interval = 3000;
                     hide_success_label.Tick += hide_success_label_Tick;
@@ -334,7 +333,6 @@ namespace Appointments_App.GUI
                 hide_error_label.Tick += hide_error_label_Tick;
                 hide_error_label.Start();
             }
-            
         }
 
         private void hide_success_label_Tick(object sender, EventArgs e)
@@ -359,6 +357,31 @@ namespace Appointments_App.GUI
             remMessage_text.Text = "";
             reminder_datetime.Value = DateTime.Now;
             this.loadReminders();
+        }
+
+        private void print_button_Click(object sender, EventArgs e)
+        {
+            printDialog1.Document = printDocument;
+            if (printDialog1.ShowDialog() == DialogResult.OK)
+            {
+                captureScreen();
+                printDocument.Print();
+            }
+        }
+
+        private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            e.Graphics.DrawImage(memoryImage, 0, 0);
+        }
+        Bitmap memoryImage;
+
+        private void captureScreen()
+        {
+            Graphics myGraphics = this.CreateGraphics();
+            Size s = new Size(920,735);
+            memoryImage = new Bitmap(s.Width, s.Height, myGraphics);
+            Graphics memotyGraphics = Graphics.FromImage(memoryImage);
+            memotyGraphics.CopyFromScreen(this.Location.X + 128, this.Location.Y, 0, 0, s);
         }
     }
 }

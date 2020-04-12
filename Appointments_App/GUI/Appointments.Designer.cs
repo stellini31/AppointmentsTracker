@@ -36,7 +36,7 @@ namespace Appointments_App
             this.todayAppointmentsTab = new System.Windows.Forms.TabPage();
             this.totalApp_label = new System.Windows.Forms.Label();
             this.dataPanel = new System.Windows.Forms.Panel();
-            this.pb = new System.Windows.Forms.ProgressBar();
+            this.pb_today = new System.Windows.Forms.ProgressBar();
             this.noAppointments_labe = new System.Windows.Forms.Label();
             this.date_label = new System.Windows.Forms.Label();
             this.counterToday_label = new System.Windows.Forms.Label();
@@ -93,6 +93,7 @@ namespace Appointments_App
             this.counterAll_label = new System.Windows.Forms.Label();
             this.allAppoitnmentsData = new System.Windows.Forms.DataGridView();
             this.pbImportHider = new System.Windows.Forms.Timer(this.components);
+            this.pb_all = new System.Windows.Forms.ProgressBar();
             this.tabControl1.SuspendLayout();
             this.todayAppointmentsTab.SuspendLayout();
             this.dataPanel.SuspendLayout();
@@ -143,7 +144,7 @@ namespace Appointments_App
             // dataPanel
             // 
             this.dataPanel.BackColor = System.Drawing.Color.Transparent;
-            this.dataPanel.Controls.Add(this.pb);
+            this.dataPanel.Controls.Add(this.pb_today);
             this.dataPanel.Controls.Add(this.noAppointments_labe);
             this.dataPanel.Controls.Add(this.date_label);
             this.dataPanel.Controls.Add(this.counterToday_label);
@@ -155,13 +156,13 @@ namespace Appointments_App
             this.dataPanel.Size = new System.Drawing.Size(1673, 794);
             this.dataPanel.TabIndex = 4;
             // 
-            // pb
+            // pb_today
             // 
-            this.pb.Location = new System.Drawing.Point(6, 105);
-            this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(1665, 11);
-            this.pb.TabIndex = 32;
-            this.pb.Visible = false;
+            this.pb_today.Location = new System.Drawing.Point(6, 105);
+            this.pb_today.Name = "pb_today";
+            this.pb_today.Size = new System.Drawing.Size(1665, 11);
+            this.pb_today.TabIndex = 32;
+            this.pb_today.Visible = false;
             // 
             // noAppointments_labe
             // 
@@ -523,6 +524,7 @@ namespace Appointments_App
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.pb_all);
             this.panel1.Controls.Add(this.allDate_label);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.counterAll_label);
@@ -765,6 +767,7 @@ namespace Appointments_App
             this.allSettings_button.Size = new System.Drawing.Size(59, 54);
             this.allSettings_button.TabIndex = 18;
             this.allSettings_button.UseVisualStyleBackColor = false;
+            this.allSettings_button.Click += new System.EventHandler(this.allSettings_button_Click);
             // 
             // label13
             // 
@@ -877,15 +880,26 @@ namespace Appointments_App
             // 
             this.pbImportHider.Tick += new System.EventHandler(this.pbImportHider_Tick);
             // 
+            // pb_all
+            // 
+            this.pb_all.Location = new System.Drawing.Point(8, 98);
+            this.pb_all.Name = "pb_all";
+            this.pb_all.Size = new System.Drawing.Size(1663, 10);
+            this.pb_all.TabIndex = 29;
+            this.pb_all.Visible = false;
+            // 
             // Appointments
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1695, 862);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1717, 1000);
             this.Name = "Appointments";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Appointments";
@@ -946,7 +960,7 @@ namespace Appointments_App
         private Label counterToday_label;
         private Label date_label;
         private Label noAppointments_labe;
-        private ProgressBar pb;
+        private ProgressBar pb_today;
         private Timer pbImportHider;
         public DataGridView allAppoitnmentsData;
         public Label counterAll_label;
@@ -974,6 +988,7 @@ namespace Appointments_App
         private Button allAddApp_button;
         private Label allDate_label;
         public Button clearFilter_button;
+        private ProgressBar pb_all;
     }
 }
 

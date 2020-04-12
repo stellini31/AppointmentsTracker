@@ -206,16 +206,17 @@ namespace Appointments_App.GUI
                 allQuery = query + filterQueries;
                 allQuery = allQuery.Substring(0, allQuery.Count() - 5);
                 appForm.clearFilter_button.Visible = true;
+
+                filteredAppointments = dbConn.getAllAppointmentsAsDataTable(allQuery);
+                appForm.populateAppointments(appForm.allAppoitnmentsData, filteredAppointments);
+                appForm.updateCounterText(appForm.counterAll_label, filteredAppointments.Rows.Count);
+                appForm.filteredAppointments = this.filteredAppointments;
             }
             else
             {
                 appForm.clearFilter_button.Visible = false;
 
             }
-            filteredAppointments = dbConn.getAllAppointmentsAsDataTable(allQuery);
-            appForm.populateAppointments(appForm.allAppoitnmentsData, filteredAppointments);
-            appForm.updateCounterText(appForm.counterAll_label, filteredAppointments.Rows.Count);
-            appForm.filteredAppointments = this.filteredAppointments;
         }
     }
 }

@@ -12,3 +12,4 @@ C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments
 C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Release\Appointments_App.exe
 C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Release\Appointments_App.pdb
 C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Release\Appointments_App.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\obj\Release\Appointments_App.GUI.Settings.resources

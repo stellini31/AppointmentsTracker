@@ -20,8 +20,6 @@ namespace Appointments_App
     public partial class Appointments : Form
     {
         database dbConn;
-        todayAppointments ta;
-        allAppointments aa;
         Filter fil;
 
         DataTable dtTodayAppoitnemts;
@@ -50,8 +48,6 @@ namespace Appointments_App
             date_label.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy");
             allDate_label.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy");
 
-            ta = new todayAppointments(this);
-            aa = new allAppointments(this);
             fil = new Filter(this);
         }
 
@@ -152,6 +148,9 @@ namespace Appointments_App
         private void allRefresh_button_Click(object sender, EventArgs e)
         {
             this.refreshData();
+
+            clearFilter_button.Visible = false;
+            this.filteredAppointments = new DataTable();
         }
 
         private void refreshData()
@@ -284,7 +283,12 @@ namespace Appointments_App
 
         private void umportFromCsv_button_Click(object sender, EventArgs e)
         {
-            Import.importAppointments(dbConn);
+            var import = new Thread(() =>
+            {
+                Import.importAppointments(dbConn, pb_today);
+            });
+            import.SetApartmentState(ApartmentState.STA);
+            import.Start();
         }
 
         private void allExport_button_Click(object sender, EventArgs e)
@@ -307,7 +311,13 @@ namespace Appointments_App
 
         private void allImport_button_Click(object sender, EventArgs e)
         {
-            Import.importAppointments(dbConn);
+            var import = new Thread(() =>
+            {
+                Import.importAppointments(dbConn, pb_all);
+            });
+            import.SetApartmentState(ApartmentState.STA);
+            import.Start();
+            
         }
         //////////////////////////// END IMPORT/EXPORT ////////////////////////////
 
@@ -334,7 +344,7 @@ namespace Appointments_App
 
         private void pbImportHider_Tick(object sender, EventArgs e)
         {
-            pb.Visible = false;
+            pb_today.Visible = false;
             pbImportHider.Stop();
         }
 
@@ -361,10 +371,18 @@ namespace Appointments_App
             }
         }
 
+        //////////////////////////// SETTINGS FILTER ////////////////////////////
         private void settings_button_Click(object sender, EventArgs e)
         {
             Settings s = new Settings();
             s.ShowDialog();
         }
+
+        private void allSettings_button_Click(object sender, EventArgs e)
+        {
+            Settings s = new Settings();
+            s.ShowDialog();
+        }
+        //////////////////////////// END SETTINGS ////////////////////////////
     }
 }

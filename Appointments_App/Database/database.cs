@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,9 +12,8 @@ namespace Appointments_App.Database
 {
     public class database
     {
-        string connString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\User\Documents\My Docs\My_Coding_Projects\Appointments_App\Appointments_App\bin\Debug\Appointments.accdb";
+        string connString = ConfigurationManager.ConnectionStrings["dbConn"].ConnectionString;
 
-       
         /*public List<appointment> getAllAppointments(string addQuery = null)
         {
             string query = "SELECT * FROM Appointments ";
@@ -281,7 +281,7 @@ namespace Appointments_App.Database
                             INNER JOIN appointmentTypes ON appointmentTypes.ID = appointments.appointment_type_id)
                             INNER JOIN
                             (SELECT comment, appointments.ID from appointments
-                            LEFT OUTER JOIN (SELECT TOP 1 * from comments ORDER BY date_added DESC) AS t ON t.appointment_id = appointments.id) AS ta ON ta.ID = appointments.id
+                            LEFT OUTER JOIN (SELECT TOP 1 * FROM comments ORDER BY date_added DESC) AS t ON t.appointment_id = appointments.id) AS ta ON ta.ID = appointments.id
                             WHERE appointment_date > DATE() AND appointment_date < DATE() +1 AND done = 0
                             ORDER BY appointment_date;";
 
@@ -807,7 +807,7 @@ namespace Appointments_App.Database
                             INNER JOIN appointmentTypes ON appointmentTypes.ID = appointments.appointment_type_id)
                             LEFT OUTER JOIN(select appointment_id, comment from comments where ID in (select MAX(ID) from comments group by appointment_id)) AS ta ON ta.appointment_id = appointments.id
                             WHERE appointment_date > DATE() AND appointment_date < DATE() +1 AND done = 0 AND
-                            (appointment_description like ? OR person_id like ? or person_name like ? or person_surname like ? or person_tel like ? or additional_person_id like ? or additional_pers_name like ? or additional_pers_surname like ? or additional_pers_tel like ? or intermediary_name like ? )
+                            (Appointments.ID like ? OR appointment_description like ? OR person_id like ? or person_name like ? or person_surname like ? or person_tel like ? or additional_person_id like ? or additional_pers_name like ? or additional_pers_surname like ? or additional_pers_tel like ? or intermediary_name like ? )
                             ORDER BY appointment_date;";
 
             DataTable searchedTodayAppointments = new DataTable();
@@ -815,6 +815,7 @@ namespace Appointments_App.Database
             {
                 connection.Open();
                 OleDbCommand cmd = new OleDbCommand(query, connection);
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
                 cmd.Parameters.AddWithValue("?", "%" + text + "%");
                 cmd.Parameters.AddWithValue("?", "%" + text + "%");
                 cmd.Parameters.AddWithValue("?", "%" + text + "%");
@@ -838,7 +839,7 @@ namespace Appointments_App.Database
                             FROM(appointments
                             INNER JOIN appointmentTypes ON appointmentTypes.ID = appointments.appointment_type_id)
                             LEFT OUTER JOIN(select appointment_id, comment from comments where ID in (select MAX(ID) from comments group by appointment_id)) AS ta ON ta.appointment_id = appointments.id
-                            WHERE appointment_description like ? OR person_id like ? or person_name like ? or person_surname like ? or person_tel like ? or additional_person_id like ? or additional_pers_name like ? or additional_pers_surname like ? or additional_pers_tel like ? or intermediary_name like ?
+                            WHERE Appointments.ID like ? OR appointment_description like ? OR person_id like ? or person_name like ? or person_surname like ? or person_tel like ? or additional_person_id like ? or additional_pers_name like ? or additional_pers_surname like ? or additional_pers_tel like ? or intermediary_name like ?
                             ORDER BY appointment_date DESC;";
 
             DataTable searchedTodayAppointments = new DataTable();
@@ -846,6 +847,7 @@ namespace Appointments_App.Database
             {
                 connection.Open();
                 OleDbCommand cmd = new OleDbCommand(query, connection);
+                cmd.Parameters.AddWithValue("?", "%" + text + "%");
                 cmd.Parameters.AddWithValue("?", "%" + text + "%");
                 cmd.Parameters.AddWithValue("?", "%" + text + "%");
                 cmd.Parameters.AddWithValue("?", "%" + text + "%");

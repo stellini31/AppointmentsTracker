@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditAppointment));
             this.titlePanel = new System.Windows.Forms.Panel();
+            this.print_button = new System.Windows.Forms.Button();
             this.saved_label = new System.Windows.Forms.Label();
             this.save_button = new System.Windows.Forms.Button();
             this.statusShow_label = new System.Windows.Forms.Label();
@@ -73,16 +74,17 @@
             this.timePicker = new System.Windows.Forms.DateTimePicker();
             this.appInfo_label = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.comment_text = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.commentsubmit_text = new System.Windows.Forms.TextBox();
+            this.submitComment_button = new System.Windows.Forms.Button();
             this.followup_panel = new System.Windows.Forms.Panel();
             this.followsupItems_panel = new System.Windows.Forms.Panel();
             this.followup_label = new System.Windows.Forms.Label();
             this.hide_success_label = new System.Windows.Forms.Timer(this.components);
             this.hide_error_label = new System.Windows.Forms.Timer(this.components);
-            this.submitComment_button = new System.Windows.Forms.Button();
-            this.commentsubmit_text = new System.Windows.Forms.TextBox();
-            this.comment_text = new System.Windows.Forms.TextBox();
             this.allReminders_panel = new System.Windows.Forms.Panel();
+            this.upcomingRem_labe = new System.Windows.Forms.Label();
             this.reminders_panel = new System.Windows.Forms.Panel();
             this.addRrem_button = new System.Windows.Forms.Button();
             this.setReminder_panel = new System.Windows.Forms.Panel();
@@ -91,7 +93,8 @@
             this.reminder_datetime = new System.Windows.Forms.DateTimePicker();
             this.reminderDate_label = new System.Windows.Forms.Label();
             this.reminders_label = new System.Windows.Forms.Label();
-            this.upcomingRem_labe = new System.Windows.Forms.Label();
+            this.printDocument = new System.Drawing.Printing.PrintDocument();
+            this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.titlePanel.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -105,6 +108,7 @@
             // 
             this.titlePanel.BackColor = System.Drawing.Color.Transparent;
             this.titlePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.titlePanel.Controls.Add(this.print_button);
             this.titlePanel.Controls.Add(this.saved_label);
             this.titlePanel.Controls.Add(this.save_button);
             this.titlePanel.Controls.Add(this.statusShow_label);
@@ -120,6 +124,19 @@
             this.titlePanel.Name = "titlePanel";
             this.titlePanel.Size = new System.Drawing.Size(843, 108);
             this.titlePanel.TabIndex = 0;
+            // 
+            // print_button
+            // 
+            this.print_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("print_button.BackgroundImage")));
+            this.print_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.print_button.FlatAppearance.BorderSize = 0;
+            this.print_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.print_button.Location = new System.Drawing.Point(812, -1);
+            this.print_button.Name = "print_button";
+            this.print_button.Size = new System.Drawing.Size(30, 30);
+            this.print_button.TabIndex = 21;
+            this.print_button.UseVisualStyleBackColor = true;
+            this.print_button.Click += new System.EventHandler(this.print_button_Click);
             // 
             // saved_label
             // 
@@ -137,9 +154,9 @@
             // 
             this.save_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("save_button.BackgroundImage")));
             this.save_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.save_button.Location = new System.Drawing.Point(764, 28);
+            this.save_button.Location = new System.Drawing.Point(764, 35);
             this.save_button.Name = "save_button";
-            this.save_button.Size = new System.Drawing.Size(51, 59);
+            this.save_button.Size = new System.Drawing.Size(51, 52);
             this.save_button.TabIndex = 12;
             this.save_button.UseVisualStyleBackColor = true;
             this.save_button.Click += new System.EventHandler(this.save_button_Click);
@@ -160,9 +177,9 @@
             this.close_button.FlatAppearance.BorderSize = 0;
             this.close_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.close_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.close_button.Location = new System.Drawing.Point(207, 58);
+            this.close_button.Location = new System.Drawing.Point(226, 58);
             this.close_button.Name = "close_button";
-            this.close_button.Size = new System.Drawing.Size(75, 38);
+            this.close_button.Size = new System.Drawing.Size(56, 38);
             this.close_button.TabIndex = 11;
             this.close_button.Text = "close";
             this.close_button.UseVisualStyleBackColor = true;
@@ -244,6 +261,7 @@
             this.title_label.AutoSize = true;
             this.title_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.title_label.Location = new System.Drawing.Point(15, 17);
+            this.title_label.MaximumSize = new System.Drawing.Size(350, 29);
             this.title_label.Name = "title_label";
             this.title_label.Size = new System.Drawing.Size(61, 29);
             this.title_label.TabIndex = 1;
@@ -583,6 +601,17 @@
             this.panel3.Size = new System.Drawing.Size(843, 306);
             this.panel3.TabIndex = 20;
             // 
+            // comment_text
+            // 
+            this.comment_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comment_text.Location = new System.Drawing.Point(13, 56);
+            this.comment_text.Multiline = true;
+            this.comment_text.Name = "comment_text";
+            this.comment_text.ReadOnly = true;
+            this.comment_text.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.comment_text.Size = new System.Drawing.Size(802, 186);
+            this.comment_text.TabIndex = 5;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -592,6 +621,28 @@
             this.label2.Size = new System.Drawing.Size(248, 29);
             this.label2.TabIndex = 4;
             this.label2.Text = "Additional Comments:";
+            // 
+            // commentsubmit_text
+            // 
+            this.commentsubmit_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.commentsubmit_text.Location = new System.Drawing.Point(13, 259);
+            this.commentsubmit_text.Multiline = true;
+            this.commentsubmit_text.Name = "commentsubmit_text";
+            this.commentsubmit_text.Size = new System.Drawing.Size(755, 31);
+            this.commentsubmit_text.TabIndex = 8;
+            // 
+            // submitComment_button
+            // 
+            this.submitComment_button.BackColor = System.Drawing.Color.White;
+            this.submitComment_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("submitComment_button.BackgroundImage")));
+            this.submitComment_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.submitComment_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.submitComment_button.Location = new System.Drawing.Point(774, 259);
+            this.submitComment_button.Name = "submitComment_button";
+            this.submitComment_button.Size = new System.Drawing.Size(41, 31);
+            this.submitComment_button.TabIndex = 9;
+            this.submitComment_button.UseVisualStyleBackColor = false;
+            this.submitComment_button.Click += new System.EventHandler(this.submitComment_button_Click);
             // 
             // followup_panel
             // 
@@ -631,39 +682,6 @@
             // 
             this.hide_error_label.Tick += new System.EventHandler(this.hide_error_label_Tick);
             // 
-            // submitComment_button
-            // 
-            this.submitComment_button.BackColor = System.Drawing.Color.White;
-            this.submitComment_button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("submitComment_button.BackgroundImage")));
-            this.submitComment_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.submitComment_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.submitComment_button.Location = new System.Drawing.Point(774, 259);
-            this.submitComment_button.Name = "submitComment_button";
-            this.submitComment_button.Size = new System.Drawing.Size(41, 31);
-            this.submitComment_button.TabIndex = 9;
-            this.submitComment_button.UseVisualStyleBackColor = false;
-            this.submitComment_button.Click += new System.EventHandler(this.submitComment_button_Click);
-            // 
-            // commentsubmit_text
-            // 
-            this.commentsubmit_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.commentsubmit_text.Location = new System.Drawing.Point(13, 259);
-            this.commentsubmit_text.Multiline = true;
-            this.commentsubmit_text.Name = "commentsubmit_text";
-            this.commentsubmit_text.Size = new System.Drawing.Size(755, 31);
-            this.commentsubmit_text.TabIndex = 8;
-            // 
-            // comment_text
-            // 
-            this.comment_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comment_text.Location = new System.Drawing.Point(13, 56);
-            this.comment_text.Multiline = true;
-            this.comment_text.Name = "comment_text";
-            this.comment_text.ReadOnly = true;
-            this.comment_text.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.comment_text.Size = new System.Drawing.Size(802, 186);
-            this.comment_text.TabIndex = 5;
-            // 
             // allReminders_panel
             // 
             this.allReminders_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -676,6 +694,17 @@
             this.allReminders_panel.Name = "allReminders_panel";
             this.allReminders_panel.Size = new System.Drawing.Size(843, 280);
             this.allReminders_panel.TabIndex = 21;
+            // 
+            // upcomingRem_labe
+            // 
+            this.upcomingRem_labe.AutoSize = true;
+            this.upcomingRem_labe.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.upcomingRem_labe.Location = new System.Drawing.Point(495, 13);
+            this.upcomingRem_labe.Name = "upcomingRem_labe";
+            this.upcomingRem_labe.Size = new System.Drawing.Size(141, 29);
+            this.upcomingRem_labe.TabIndex = 25;
+            this.upcomingRem_labe.Text = "Upcoming...";
+            this.upcomingRem_labe.Visible = false;
             // 
             // reminders_panel
             // 
@@ -760,16 +789,13 @@
             this.reminders_label.TabIndex = 4;
             this.reminders_label.Text = "Reminders";
             // 
-            // upcomingRem_labe
+            // printDocument
             // 
-            this.upcomingRem_labe.AutoSize = true;
-            this.upcomingRem_labe.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.upcomingRem_labe.Location = new System.Drawing.Point(495, 13);
-            this.upcomingRem_labe.Name = "upcomingRem_labe";
-            this.upcomingRem_labe.Size = new System.Drawing.Size(141, 29);
-            this.upcomingRem_labe.TabIndex = 25;
-            this.upcomingRem_labe.Text = "Upcoming...";
-            this.upcomingRem_labe.Visible = false;
+            this.printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_PrintPage);
+            // 
+            // printDialog1
+            // 
+            this.printDialog1.UseEXDialog = true;
             // 
             // EditAppointment
             // 
@@ -777,7 +803,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(888, 681);
+            this.ClientSize = new System.Drawing.Size(909, 681);
             this.Controls.Add(this.allReminders_panel);
             this.Controls.Add(this.followup_panel);
             this.Controls.Add(this.panel3);
@@ -789,7 +815,6 @@
             this.Name = "EditAppointment";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EditAppointment";
-            this.TopMost = true;
             this.Load += new System.EventHandler(this.EditAppointment_Load);
             this.titlePanel.ResumeLayout(false);
             this.titlePanel.PerformLayout();
@@ -873,5 +898,8 @@
         private System.Windows.Forms.Label reminderDate_label;
         private System.Windows.Forms.Label reminders_label;
         private System.Windows.Forms.Label upcomingRem_labe;
+        private System.Windows.Forms.Button print_button;
+        private System.Drawing.Printing.PrintDocument printDocument;
+        private System.Windows.Forms.PrintDialog printDialog1;
     }
 }
